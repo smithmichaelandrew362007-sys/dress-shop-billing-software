@@ -337,8 +337,8 @@ const Invoices = {
 
       container.innerHTML = `
         <div class="thermal-receipt">
-          <div class="print-store-name">${s.store_name || 'LUMIÈRE ATELIER'}</div>
-          <div class="print-center" style="font-size: 10px; margin-bottom: 4px;">${s.store_tagline || 'Haute Couture Boutique'}</div>
+          <div class="print-store-name">${s.store_name || 'SURYA TEXTILES'}</div>
+          <div class="print-center" style="font-size: 10px; margin-bottom: 4px;">${s.store_tagline || 'Premium Silks & Textiles'}</div>
           <div class="print-center" style="font-size: 9px; line-height: 1.3;">${s.address || ''}</div>
           <div class="print-center" style="font-size: 9px;">Phone: ${s.phone || ''} | GSTIN: ${s.gstin || ''}</div>
           <hr />
@@ -414,8 +414,8 @@ const Invoices = {
         <div class="a4-invoice">
           <div class="print-header">
             <div>
-              <div class="print-store-name">${s.store_name || 'LUMIÈRE ATELIER'}</div>
-              <div class="print-store-tagline">${s.store_tagline || 'Haute Couture & Ready-to-Wear Boutique'}</div>
+              <div class="print-store-name">${s.store_name || 'SURYA TEXTILES'}</div>
+              <div class="print-store-tagline">${s.store_tagline || 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles'}</div>
               <div class="print-store-details">
                 ${s.address || 'Fashion Promenade'}<br>
                 Tel: ${s.phone || ''} | Email: ${s.email || ''}<br>
@@ -502,7 +502,7 @@ const Invoices = {
             </div>
             <div class="print-sign-box">
               Authorized Signatory<br>
-              <small>Lumière Atelier</small>
+              <small>Surya Textiles</small>
             </div>
           </div>
         </div>

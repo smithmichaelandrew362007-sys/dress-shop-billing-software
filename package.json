@@ -1,7 +1,7 @@
 {
   "name": "dress-shop-billing-software",
   "version": "1.0.0",
-  "description": "Lumière Atelier - Luxury Dress Shop Website & POS Billing Software",
+  "description": "Surya Textiles - Luxury Dress Shop Website & POS Billing Software",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

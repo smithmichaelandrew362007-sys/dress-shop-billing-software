@@ -21,7 +21,7 @@ const App = {
       if (typeof Inventory !== 'undefined') await Inventory.init();
       if (typeof Invoices !== 'undefined') await Invoices.init();
 
-      console.log('✨ Lumière Atelier Boutique & Billing Software initialized successfully');
+      console.log('✨ Surya Textiles Boutique & Billing Software initialized successfully');
     } catch (err) {
       console.error('App initialization error:', err);
     }
@@ -67,7 +67,7 @@ const App = {
     if (document.getElementById('set-gstin')) document.getElementById('set-gstin').value = s.gstin || '';
     if (document.getElementById('set-currency')) document.getElementById('set-currency').value = s.currency || '₹';
     if (document.getElementById('set-tax-rate')) document.getElementById('set-tax-rate').value = s.tax_rate || 5.0;
-    if (document.getElementById('set-invoice-prefix')) document.getElementById('set-invoice-prefix').value = s.invoice_prefix || 'LUM';
+    if (document.getElementById('set-invoice-prefix')) document.getElementById('set-invoice-prefix').value = s.invoice_prefix || 'STX';
     if (document.getElementById('set-receipt-footer')) document.getElementById('set-receipt-footer').value = s.receipt_footer || '';
   },
 
@@ -75,8 +75,8 @@ const App = {
     e.preventDefault();
 
     const payload = {
-      store_name: document.getElementById('set-store-name').value.trim() || 'LUMIÈRE ATELIER',
-      store_tagline: document.getElementById('set-store-tagline').value.trim() || 'Haute Couture Boutique',
+      store_name: document.getElementById('set-store-name').value.trim() || 'SURYA TEXTILES',
+      store_tagline: document.getElementById('set-store-tagline').value.trim() || 'Premium Silks & Textiles',
       address: document.getElementById('set-address').value.trim(),
       phone: document.getElementById('set-phone').value.trim(),
       email: document.getElementById('set-email').value.trim(),

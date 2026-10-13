@@ -366,8 +366,8 @@ const Billing = {
     // Generate dynamic QR code canvas
     const qrContainer = document.getElementById('upi-qr-box');
     if (qrContainer) {
-      const upiId = 'lumiereatelier@icici';
-      const upiUrl = `upi://pay?pa=${upiId}&pn=Lumiere Atelier&am=${totals.grandTotal.toFixed(2)}&cu=INR&tn=Dress Bill`;
+      const upiId = 'suryatextiles@icici';
+      const upiUrl = `upi://pay?pa=${upiId}&pn=Surya Textiles&am=${totals.grandTotal.toFixed(2)}&cu=INR&tn=Dress Bill`;
       
       // Use clean QR API or SVG generator
       const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;

@@ -58,7 +58,7 @@ async function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 720,
-    title: 'LUMIÈRE ATELIER — Dress Shop Billing & Catalog',
+    title: 'SURYA TEXTILES — Dress Shop Billing & Catalog',
     backgroundColor: '#0a0d14',
     show: false, // Show once ready-to-show to prevent white flash
     webPreferences: {
@@ -168,13 +168,13 @@ function setupAppMenu() {
       label: 'Help',
       submenu: [
         {
-          label: 'About Lumière Atelier',
+          label: 'About Surya Textiles',
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
-              title: 'Lumière Atelier Desktop',
-              message: 'Lumière Atelier Haute Couture Billing & Catalog',
-              detail: `Desktop Edition powered by Electron ${process.versions.electron}\nNode.js ${process.versions.node}\nChromium ${process.versions.chrome}\nPersistent SQLite Database Engine`,
+              title: 'Surya Textiles Desktop',
+              message: 'Surya Textiles — Luxury Dress Shop Billing & Catalog',
+              detail: `Desktop Edition powered by Electron ${process.versions.electron}\nNode.js ${process.versions.node}\nChromium ${process.versions.chrome}\nDual Database Engine (Neon PostgreSQL / Local SQLite)`,
               buttons: ['OK']
             });
           }

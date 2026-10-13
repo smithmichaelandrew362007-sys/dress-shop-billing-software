@@ -26,16 +26,16 @@ async function initPostgresSchema() {
   await p.query(`
     CREATE TABLE IF NOT EXISTS settings (
       id INT PRIMARY KEY DEFAULT 1,
-      store_name TEXT NOT NULL DEFAULT 'LUMIÈRE ATELIER',
-      store_tagline TEXT NOT NULL DEFAULT 'Haute Couture & Ready-to-Wear Boutique',
+      store_name TEXT NOT NULL DEFAULT 'SURYA TEXTILES',
+      store_tagline TEXT NOT NULL DEFAULT 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
       address TEXT NOT NULL DEFAULT '42 Fashion Promenade, 2nd Floor, Design District',
       phone TEXT NOT NULL DEFAULT '+91 98765 43210',
-      email TEXT NOT NULL DEFAULT 'concierge@lumiereatelier.com',
+      email TEXT NOT NULL DEFAULT 'contact@suryatextiles.com',
       gstin TEXT NOT NULL DEFAULT '33AABCT9988C1ZR',
       currency TEXT NOT NULL DEFAULT '₹',
       tax_rate NUMERIC(5,2) NOT NULL DEFAULT 5.00,
-      invoice_prefix TEXT NOT NULL DEFAULT 'LUM',
-      receipt_footer TEXT NOT NULL DEFAULT 'Thank you for shopping with Lumière Atelier! Exchange within 7 days with original invoice & tag intact.'
+      invoice_prefix TEXT NOT NULL DEFAULT 'STX',
+      receipt_footer TEXT NOT NULL DEFAULT 'Thank you for shopping with Surya Textiles! Exchange within 7 days with original invoice & tag intact.'
     );
 
     CREATE TABLE IF NOT EXISTS categories (
@@ -115,7 +115,7 @@ async function initPostgresSchema() {
   if (parseInt(settingsRes.rows[0].count, 10) === 0) {
     await p.query(`
       INSERT INTO settings (id, store_name, store_tagline, address, phone, email, gstin, currency, tax_rate, invoice_prefix)
-      VALUES (1, 'LUMIÈRE ATELIER', 'Haute Couture & Ready-to-Wear Boutique', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'concierge@lumiereatelier.com', '33AABCT9988C1ZR', '₹', 5.0, 'LUM')
+      VALUES (1, 'SURYA TEXTILES', 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'contact@suryatextiles.com', '33AABCT9988C1ZR', '₹', 5.0, 'STX')
     `);
   }
 

@@ -1,4 +1,4 @@
-# LUMIÈRE ATELIER — Luxury Dress Shop & Billing Software
+# SURYA TEXTILES — Luxury Dress Shop & Billing Software
 
 An all-in-one web application combining an **editorial fashion boutique storefront website** with a high-speed **Point-of-Sale (POS) Billing Software** and a **persistent SQLite Database** for managing dress items, prices, inventory, and customer invoices.
 
