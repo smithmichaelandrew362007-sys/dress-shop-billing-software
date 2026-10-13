@@ -108,7 +108,34 @@ async function initPostgresSchema() {
       quantity INT NOT NULL,
       line_total NUMERIC(10,2) NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      username TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      name TEXT NOT NULL,
+      email TEXT,
+      phone TEXT,
+      role TEXT NOT NULL DEFAULT 'customer',
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
   `);
+
+  // Ensure default admin and customer exist
+  const userCountRes = await p.query('SELECT COUNT(*) as count FROM users');
+  if (parseInt(userCountRes.rows[0].count, 10) === 0) {
+    const { hashPassword } = require('./auth-utils');
+    const adminHash = hashPassword('admin123');
+    const customerHash = hashPassword('customer123');
+    await p.query(`
+      INSERT INTO users (username, password_hash, name, email, phone, role)
+      VALUES 
+        ('admin', $1, 'Surya Admin', 'admin@suryatextiles.com', '+91 98765 43210', 'admin'),
+        ('customer', $2, 'Aaradhya Sharma', 'aaradhya@example.com', '9876501234', 'customer')
+      ON CONFLICT (username) DO NOTHING
+    `, [adminHash, customerHash]);
+    console.log('✅ Default users seeded in Neon PostgreSQL (admin/admin123, customer/customer123)');
+  }
 
   // Ensure default settings row exists
   const settingsRes = await p.query('SELECT COUNT(*) as count FROM settings');
@@ -847,6 +874,64 @@ const PostgresDatabase = {
         total: parseFloat(r.total)
       }))
     };
+  },
+
+  // Authentication & User Management
+  async getUserByUsername(username) {
+    if (!username) return null;
+    const p = getPool();
+    const res = await p.query('SELECT * FROM users WHERE LOWER(username) = LOWER($1)', [username.trim()]);
+    return res.rows[0] || null;
+  },
+
+  async getUserById(id) {
+    const p = getPool();
+    const res = await p.query('SELECT id, username, name, email, phone, role, created_at FROM users WHERE id = $1', [id]);
+    return res.rows[0] || null;
+  },
+
+  async createUser({ username, password, name, email = '', phone = '', role = 'customer' }) {
+    const p = getPool();
+    const cleanUsername = username.trim().toLowerCase();
+
+    // Enforce unique username
+    const existing = await this.getUserByUsername(cleanUsername);
+    if (existing) {
+      const err = new Error(`Username "${username}" is already taken. Please choose another username.`);
+      err.code = 'USER_EXISTS';
+      throw err;
+    }
+
+    const { hashPassword } = require('./auth-utils');
+    const passwordHash = hashPassword(password);
+    const assignedRole = role === 'admin' ? 'admin' : 'customer';
+
+    const res = await p.query(`
+      INSERT INTO users (username, password_hash, name, email, phone, role)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id, username, name, email, phone, role, created_at
+    `, [cleanUsername, passwordHash, name.trim(), (email || '').trim(), (phone || '').trim(), assignedRole]);
+
+    return res.rows[0];
+  },
+
+  async verifyUser(username, password) {
+    if (!username || !password) return null;
+    const user = await this.getUserByUsername(username);
+    if (!user) return null;
+
+    const { verifyPassword } = require('./auth-utils');
+    const isValid = verifyPassword(password, user.password_hash);
+    if (!isValid) return null;
+
+    const { password_hash, ...safeUser } = user;
+    return safeUser;
+  },
+
+  async getAllUsers() {
+    const p = getPool();
+    const res = await p.query('SELECT id, username, name, email, phone, role, created_at FROM users ORDER BY id ASC');
+    return res.rows;
   }
 };
 

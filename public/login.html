@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Account Portal | Surya Textiles</title>
+  <meta name="description" content="Sign in or register for Surya Textiles. Dedicated portal for customer boutique accounts and staff/admin POS management.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main Design System -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 50% 20%, #1e1b18 0%, #0d0f14 60%, #06080b 100%);
+      color: var(--text-primary, #f5f5f7);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .auth-header {
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      background: rgba(10, 13, 20, 0.7);
+      backdrop-filter: blur(12px);
+    }
+
+    .auth-header .brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .auth-nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .auth-main-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(18, 22, 32, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.08);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .auth-tabs-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: rgba(10, 13, 20, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .auth-tab-btn {
+      padding: 1rem 0.5rem;
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .auth-tab-btn i {
+      font-size: 1.1rem;
+    }
+
+    .auth-tab-btn:hover {
+      color: #e5e7eb;
+    }
+
+    .auth-tab-btn.active {
+      color: var(--accent-gold, #d4af37);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .auth-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: var(--accent-gold, #d4af37);
+      box-shadow: 0 0 10px var(--accent-gold, #d4af37);
+    }
+
+    .auth-card-body {
+      padding: 2rem 2.25rem;
+    }
+
+    .auth-title-area {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-title-area h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .auth-title-area p {
+      color: #9ca3af;
+      font-size: 0.88rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #e5e7eb;
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .form-input-styled {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.6rem;
+      background: rgba(10, 13, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .form-input-styled:focus {
+      outline: none;
+      border-color: var(--accent-gold, #d4af37);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+      background: rgba(15, 18, 28, 0.9);
+    }
+
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #9ca3af;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.25rem;
+    }
+
+    .toggle-pwd-btn:hover {
+      color: #fff;
+    }
+
+    .auth-btn-primary {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+      border: none;
+      border-radius: 8px;
+      color: #0d0f14;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .auth-btn-primary:hover {
+      background: linear-gradient(135deg, #e5c158 0%, #bd9315 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+    }
+
+    .auth-btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .demo-credentials-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .demo-credentials-text {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+
+    .demo-credentials-text strong {
+      color: var(--accent-gold, #d4af37);
+    }
+
+    .btn-quick-fill {
+      padding: 0.35rem 0.65rem;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 6px;
+      color: var(--accent-gold, #d4af37);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-quick-fill:hover {
+      background: var(--accent-gold, #d4af37);
+      color: #000;
+    }
+
+    .auth-alert {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .auth-alert.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .auth-alert.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+
+    .user-logged-in-panel {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .user-avatar-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4af37, #996515);
+      color: #000;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-weight: 700;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+    }
+
+    .role-badge.admin {
+      background: rgba(212, 175, 55, 0.2);
+      color: #f3e5ab;
+      border: 1px solid #d4af37;
+    }
+
+    .role-badge.customer {
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+      border: 1px solid #3b82f6;
+    }
+
+    .user-actions-grid {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="auth-header">
+    <a href="index.html" class="brand-wrapper">
+      <div class="brand-logo-icon">
+        <i class="fas fa-gem" style="font-size: 1.35rem; color: var(--accent-gold, #d4af37);"></i>
+      </div>
+      <div>
+        <h1 class="brand-store-name" style="font-size: 1.35rem; margin: 0; font-family: 'Playfair Display', serif; color: var(--accent-gold, #d4af37);">SURYA TEXTILES</h1>
+        <span class="brand-store-tagline" style="font-size: 0.75rem; color: #9ca3af; letter-spacing: 0.05em;">Authentication & Account Access</span>
+      </div>
+    </a>
+
+    <div class="auth-nav-links">
+      <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+        <i class="fas fa-store"></i> Storefront
+      </a>
+      <a href="billing.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">
+        <i class="fas fa-cash-register"></i> Billing POS
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Auth Container -->
+  <main class="auth-main-container">
+    <div class="auth-card">
+
+      <!-- When user is already logged in -->
+      <div id="already-logged-in-view" class="user-logged-in-panel">
+        <div class="user-avatar-circle" id="logged-user-avatar">S</div>
+        <h3 id="logged-user-name" style="font-size: 1.35rem; margin-bottom: 0.25rem;">Surya Admin</h3>
+        <p id="logged-user-username" style="color: #9ca3af; font-size: 0.88rem; margin-bottom: 0.5rem;">@admin</p>
+        <span id="logged-user-role-badge" class="role-badge admin">ADMIN ACCESS</span>
+
+        <div class="user-actions-grid">
+          <a href="index.html" class="btn btn-primary" style="text-decoration: none; justify-content: center;">
+            <i class="fas fa-shopping-bag"></i> Browse Dress Collections
+          </a>
+          <a href="billing.html" id="btn-goto-billing" class="btn btn-outline-gold" style="text-decoration: none; justify-content: center;">
+            <i class="fas fa-cash-register"></i> Open POS Billing Terminal
+          </a>
+          <button onclick="AuthPage.logout()" class="btn btn-secondary" style="justify-content: center;">
+            <i class="fas fa-sign-out-alt"></i> Sign Out / Switch Account
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Form Tabs (when logged out) -->
+      <div id="auth-forms-wrapper">
+        <div class="auth-tabs-header">
+          <button class="auth-tab-btn active" data-tab="customer-login">
+            <i class="fas fa-user"></i>
+            <span>Customer</span>
+          </button>
+          <button class="auth-tab-btn" data-tab="admin-login">
+            <i class="fas fa-crown"></i>
+            <span>Admin Portal</span>
+          </button>
+          <button class="auth-tab-btn" data-tab="register">
+            <i class="fas fa-user-plus"></i>
+            <span>Register</span>
+          </button>
+        </div>
+
+        <div class="auth-card-body">
+          <!-- Alert Feedback Banner -->
+          <div id="auth-alert" class="auth-alert">
+            <i class="fas fa-info-circle" id="auth-alert-icon"></i>
+            <span id="auth-alert-text">Message</span>
+          </div>
+
+          <!-- TAB 1: Customer Login -->
+          <form id="customer-login-form" class="auth-tab-content">
+            <div class="auth-title-area">
+              <h2>Customer Sign In</h2>
+              <p>Access your saved preferences & purchase invoices</p>
+            </div>
+
+            <div class="form-group">
+              <label for="c-username">Unique Username</label>
+              <div class="input-wrapper">
+                <i class="fas fa-at input-icon"></i>
+                <input type="text" id="c-username" class="form-input-styled" placeholder="e.g. customer" required autocomplete="username" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c-password">Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="c-password" class="form-input-styled" placeholder="••••••••" required autocomplete="current-password" />
+                <button type="button" class="toggle-pwd-btn" onclick="AuthPage.togglePwdVisibility('c-password', this)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="auth-btn-primary" id="btn-customer-submit">
+              <span>Sign In as Customer</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <!-- Quick Demo Credential Tile -->
+            <div class="demo-credentials-box">
+              <div class="demo-credentials-text">
+                Demo: <strong>customer</strong> / <strong>customer123</strong>
+              </div>
+              <button type="button" class="btn-quick-fill" onclick="AuthPage.fillDemo('customer', 'customer123', 'customer-login')">
+                <i class="fas fa-magic"></i> Auto Fill
+              </button>
+            </div>
+          </form>
+
+          <!-- TAB 2: Admin Portal Login -->
+          <form id="admin-login-form" class="auth-tab-content" style="display: none;">
+            <div class="auth-title-area">
+              <span style="font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent-gold, #d4af37); text-transform: uppercase;">STAFF & MANAGER ACCESS</span>
+              <h2>Admin Portal</h2>
+              <p>Authorize billing counter terminal & catalog management</p>
+            </div>
+
+            <div class="form-group">
+              <label for="a-username">Admin Username</label>
+              <div class="input-wrapper">
+                <i class="fas fa-shield-alt input-icon"></i>
+                <input type="text" id="a-username" class="form-input-styled" placeholder="e.g. admin" required autocomplete="username" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="a-password">Admin Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-key input-icon"></i>
+                <input type="password" id="a-password" class="form-input-styled" placeholder="••••••••" required autocomplete="current-password" />
+                <button type="button" class="toggle-pwd-btn" onclick="AuthPage.togglePwdVisibility('a-password', this)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="auth-btn-primary" id="btn-admin-submit" style="background: linear-gradient(135deg, #d4af37 0%, #7d5e0a 100%);">
+              <i class="fas fa-unlock-alt"></i>
+              <span>Authenticate & Enter POS</span>
+            </button>
+
+            <!-- Quick Demo Credential Tile -->
+            <div class="demo-credentials-box">
+              <div class="demo-credentials-text">
+                Demo: <strong>admin</strong> / <strong>admin123</strong>
+              </div>
+              <button type="button" class="btn-quick-fill" onclick="AuthPage.fillDemo('admin', 'admin123', 'admin-login')">
+                <i class="fas fa-magic"></i> Auto Fill
+              </button>
+            </div>
+          </form>
+
+          <!-- TAB 3: Customer Registration -->
+          <form id="register-form" class="auth-tab-content" style="display: none;">
+            <div class="auth-title-area">
+              <h2>Create Account</h2>
+              <p>Join Surya Textiles with your unique username</p>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-name">Full Name *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="reg-name" class="form-input-styled" placeholder="e.g. Priya Sundaram" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-username">Choose Unique Username *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-at input-icon"></i>
+                <input type="text" id="reg-username" class="form-input-styled" placeholder="e.g. priya_couture" required minlength="3" autocomplete="username" />
+              </div>
+              <small style="color: #6b7280; font-size: 0.72rem; margin-top: 0.25rem; display: block;">Must be unique across all users. Letters, numbers, underscores only.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-phone">Phone / WhatsApp Number</label>
+              <div class="input-wrapper">
+                <i class="fas fa-phone input-icon"></i>
+                <input type="tel" id="reg-phone" class="form-input-styled" placeholder="e.g. +91 98765 43210" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" id="reg-email" class="form-input-styled" placeholder="e.g. priya@example.com" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-password">Password *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="reg-password" class="form-input-styled" placeholder="Minimum 4 characters" required minlength="4" autocomplete="new-password" />
+                <button type="button" class="toggle-pwd-btn" onclick="AuthPage.togglePwdVisibility('reg-password', this)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="auth-btn-primary" id="btn-register-submit">
+              <i class="fas fa-user-plus"></i>
+              <span>Create Unique Account</span>
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 1.5rem; font-size: 0.8rem; color: #6b7280; border-top: 1px solid rgba(255,255,255,0.06);">
+    &copy; 2026 Surya Textiles. All rights reserved. Persistent Database Architecture.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script>
+    const AuthPage = {
+      activeTab: 'customer-login',
+
+      init() {
+        this.bindEvents();
+        this.checkExistingSession();
+      },
+
+      checkExistingSession() {
+        try {
+          const raw = localStorage.getItem('surya_user');
+          if (raw) {
+            const user = JSON.parse(raw);
+            if (user && user.username) {
+              this.renderLoggedInView(user);
+            }
+          }
+        } catch (e) {
+          localStorage.removeItem('surya_user');
+        }
+      },
+
+      renderLoggedInView(user) {
+        document.getElementById('auth-forms-wrapper').style.display = 'none';
+        const panel = document.getElementById('already-logged-in-view');
+        panel.style.display = 'block';
+
+        document.getElementById('logged-user-avatar').textContent = (user.name || user.username || 'U')[0].toUpperCase();
+        document.getElementById('logged-user-name').textContent = user.name || user.username;
+        document.getElementById('logged-user-username').textContent = `@${user.username}`;
+        
+        const badge = document.getElementById('logged-user-role-badge');
+        badge.textContent = user.role === 'admin' ? 'ADMIN ACCESS' : 'CUSTOMER ACCOUNT';
+        badge.className = `role-badge ${user.role}`;
+
+        const billingBtn = document.getElementById('btn-goto-billing');
+        if (billingBtn) {
+          billingBtn.style.display = user.role === 'admin' ? 'flex' : 'none';
+        }
+      },
+
+      logout() {
+        localStorage.removeItem('surya_user');
+        document.getElementById('already-logged-in-view').style.display = 'none';
+        document.getElementById('auth-forms-wrapper').style.display = 'block';
+        this.showAlert('You have been signed out successfully.', 'info');
+      },
+
+      bindEvents() {
+        // Tab Switching
+        const tabBtns = document.querySelectorAll('.auth-tab-btn');
+        tabBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const targetTab = btn.getAttribute('data-tab');
+            this.switchTab(targetTab);
+          });
+        });
+
+        // Customer Login Form
+        document.getElementById('customer-login-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.handleLogin('c-username', 'c-password', 'customer');
+        });
+
+        // Admin Login Form
+        document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.handleLogin('a-username', 'a-password', 'admin');
+        });
+
+        // Register Form
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.handleRegister();
+        });
+      },
+
+      switchTab(tabId) {
+        this.activeTab = tabId;
+        this.hideAlert();
+
+        document.getElementById('customer-login-form').style.display = tabId === 'customer-login' ? 'block' : 'none';
+        document.getElementById('admin-login-form').style.display = tabId === 'admin-login' ? 'block' : 'none';
+        document.getElementById('register-form').style.display = tabId === 'register' ? 'block' : 'none';
+      },
+
+      togglePwdVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.className = 'fas fa-eye-slash';
+        } else {
+          input.type = 'password';
+          icon.className = 'fas fa-eye';
+        }
+      },
+
+      fillDemo(username, password, tabName) {
+        if (tabName === 'customer-login') {
+          document.getElementById('c-username').value = username;
+          document.getElementById('c-password').value = password;
+        } else if (tabName === 'admin-login') {
+          document.getElementById('a-username').value = username;
+          document.getElementById('a-password').value = password;
+        }
+      },
+
+      showAlert(msg, type = 'error') {
+        const alertBox = document.getElementById('auth-alert');
+        const alertText = document.getElementById('auth-alert-text');
+        const alertIcon = document.getElementById('auth-alert-icon');
+
+        alertText.textContent = msg;
+        alertBox.className = `auth-alert ${type}`;
+        alertIcon.className = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+        alertBox.style.display = 'flex';
+      },
+
+      hideAlert() {
+        const alertBox = document.getElementById('auth-alert');
+        if (alertBox) alertBox.style.display = 'none';
+      },
+
+      async handleLogin(usernameInputId, passwordInputId, expectedRole) {
+        const username = document.getElementById(usernameInputId).value.trim();
+        const password = document.getElementById(passwordInputId).value;
+        const submitBtn = document.getElementById(expectedRole === 'admin' ? 'btn-admin-submit' : 'btn-customer-submit');
+        const originalHtml = submitBtn.innerHTML;
+
+        try {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+          this.hideAlert();
+
+          const res = await API.login(username, password);
+          if (res.success && res.data) {
+            const user = res.data;
+            localStorage.setItem('surya_user', JSON.stringify(user));
+
+            this.showAlert(`Welcome back, ${user.name}! Redirecting...`, 'success');
+
+            setTimeout(() => {
+              // Redirect depending on role
+              if (user.role === 'admin') {
+                window.location.href = 'billing.html';
+              } else {
+                window.location.href = 'index.html';
+              }
+            }, 900);
+          }
+        } catch (err) {
+          this.showAlert(err.message || 'Login failed. Please verify credentials.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHtml;
+        }
+      },
+
+      async handleRegister() {
+        const name = document.getElementById('reg-name').value.trim();
+        const username = document.getElementById('reg-username').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const submitBtn = document.getElementById('btn-register-submit');
+        const originalHtml = submitBtn.innerHTML;
+
+        try {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+          this.hideAlert();
+
+          const res = await API.register({
+            name,
+            username,
+            phone,
+            email,
+            password,
+            role: 'customer'
+          });
+
+          if (res.success && res.data) {
+            const user = res.data;
+            localStorage.setItem('surya_user', JSON.stringify(user));
+
+            this.showAlert(`Welcome to Surya Textiles, ${user.name}! Your account is active. Redirecting...`, 'success');
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1000);
+          }
+        } catch (err) {
+          this.showAlert(err.message || 'Registration failed. Username may already be taken.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHtml;
+        }
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => AuthPage.init());
+  </script>
+</body>
+</html>

@@ -92,5 +92,25 @@ const API = {
   // Analytics
   getAnalytics() {
     return this.request('/analytics');
+  },
+
+  // Authentication & Users
+  login(username, password) {
+    return this.request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password })
+    });
+  },
+
+  register(userData) {
+    return this.request('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  },
+
+  getUsers() {
+    return this.request('/auth/users');
   }
 };
+

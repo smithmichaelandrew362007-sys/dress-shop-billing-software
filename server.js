@@ -175,9 +175,88 @@ app.get('/api/analytics', async (req, res) => {
   }
 });
 
+// 7. Authentication & User Management (Admin & Customer)
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { username, password, name, email, phone, role } = req.body;
+
+    if (!username || !username.trim()) {
+      return res.status(400).json({ success: false, error: 'Username is required.' });
+    }
+    if (username.trim().length < 3) {
+      return res.status(400).json({ success: false, error: 'Username must be at least 3 characters long.' });
+    }
+    if (!/^[a-zA-Z0-9_.-]+$/.test(username.trim())) {
+      return res.status(400).json({ success: false, error: 'Username can only contain letters, numbers, dots, and underscores.' });
+    }
+    if (!password || password.length < 4) {
+      return res.status(400).json({ success: false, error: 'Password must be at least 4 characters long.' });
+    }
+    if (!name || !name.trim()) {
+      return res.status(400).json({ success: false, error: 'Full name is required.' });
+    }
+
+    const newUser = await db.createUser({
+      username: username.trim(),
+      password,
+      name: name.trim(),
+      email: email ? email.trim() : '',
+      phone: phone ? phone.trim() : '',
+      role: role === 'admin' ? 'admin' : 'customer'
+    });
+
+    res.status(201).json({
+      success: true,
+      data: newUser,
+      message: `Account created successfully for ${newUser.name}!`
+    });
+  } catch (err) {
+    if (err.code === 'USER_EXISTS' || err.message?.includes('already taken') || err.message?.includes('UNIQUE constraint failed') || err.message?.includes('users_username_key')) {
+      return res.status(409).json({ success: false, error: 'Username is already taken. Please choose another username.' });
+    }
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ success: false, error: 'Username and password are required.' });
+    }
+
+    const user = await db.verifyUser(username.trim(), password);
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'Invalid username or password. Please try again.' });
+    }
+
+    res.json({
+      success: true,
+      data: user,
+      message: `Welcome back, ${user.name}!`
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/auth/users', async (req, res) => {
+  try {
+    const users = await db.getAllUsers();
+    res.json({ success: true, data: users });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // 404 handler for unknown API routes
 app.use('/api', (req, res) => {
   res.status(404).json({ success: false, error: 'API endpoint not found' });
+});
+
+// Route for Login & Account Registration
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // Route for Billing POS counter

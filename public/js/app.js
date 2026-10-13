@@ -14,6 +14,7 @@ const App = {
       this.bindModalListeners();
 
       this.checkElectronEnvironment();
+      AuthHelper.renderNavbarUser();
 
       // Initialize active sub-modules
       if (typeof Storefront !== 'undefined') await Storefront.init();
@@ -243,7 +244,46 @@ const App = {
   }
 };
 
+/**
+ * Authentication Helper for Client State & Navbar
+ */
+const AuthHelper = {
+  getUser() {
+    try {
+      const raw = localStorage.getItem('surya_user');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  renderNavbarUser() {
+    const user = this.getUser();
+    const loginBtn = document.getElementById('btn-nav-login');
+    const badge = document.getElementById('nav-user-profile-badge');
+    const nameEl = document.getElementById('nav-user-name');
+
+    if (user && user.username) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (badge) badge.style.display = 'inline-flex';
+      if (nameEl) {
+        const icon = user.role === 'admin' ? '<i class="fas fa-crown"></i>' : '<i class="fas fa-user"></i>';
+        nameEl.innerHTML = `${icon} ${user.name || user.username} <small style="color: #9ca3af; text-transform: uppercase; font-size: 0.68rem;">(${user.role})</small>`;
+      }
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-flex';
+      if (badge) badge.style.display = 'none';
+    }
+  },
+
+  logout() {
+    localStorage.removeItem('surya_user');
+    window.location.reload();
+  }
+};
+
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   App.init();
 });
+

@@ -140,7 +140,32 @@ function initSchema() {
       FOREIGN KEY (invoice_id) REFERENCES invoices(id) ON DELETE CASCADE,
       FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      name TEXT NOT NULL,
+      email TEXT,
+      phone TEXT,
+      role TEXT NOT NULL DEFAULT 'customer',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
+
+  // Ensure default admin & customer exist
+  const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get();
+  if (userCount.count === 0) {
+    const { hashPassword } = require('./auth-utils');
+    const adminHash = hashPassword('admin123');
+    const customerHash = hashPassword('customer123');
+    const insertUser = db.prepare(`
+      INSERT OR IGNORE INTO users (username, password_hash, name, email, phone, role)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `);
+    insertUser.run('admin', adminHash, 'Surya Admin', 'admin@suryatextiles.com', '+91 98765 43210', 'admin');
+    insertUser.run('customer', customerHash, 'Aaradhya Sharma', 'aaradhya@example.com', '9876501234', 'customer');
+  }
 
   // Ensure default settings row exists
   const settingsCount = db.prepare('SELECT COUNT(*) as count FROM settings').get();
@@ -932,6 +957,53 @@ const Database = {
       low_stock_items: lowStockItems,
       payment_breakdown: paymentBreakdown
     };
+  },
+
+  // Authentication & Users
+  getUserByUsername(username) {
+    if (!username) return null;
+    return db.prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(?)').get(username.trim());
+  },
+
+  getUserById(id) {
+    return db.prepare('SELECT id, username, name, email, phone, role, created_at FROM users WHERE id = ?').get(id);
+  },
+
+  createUser({ username, password, name, email = '', phone = '', role = 'customer' }) {
+    const cleanUsername = username.trim().toLowerCase();
+    const existing = this.getUserByUsername(cleanUsername);
+    if (existing) {
+      const err = new Error(`Username "${username}" is already taken. Please choose another username.`);
+      err.code = 'USER_EXISTS';
+      throw err;
+    }
+    const { hashPassword } = require('./auth-utils');
+    const passwordHash = hashPassword(password);
+    const assignedRole = role === 'admin' ? 'admin' : 'customer';
+
+    const stmt = db.prepare(`
+      INSERT INTO users (username, password_hash, name, email, phone, role)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `);
+    const res = stmt.run(cleanUsername, passwordHash, name.trim(), (email || '').trim(), (phone || '').trim(), assignedRole);
+    return this.getUserById(res.lastInsertRowid);
+  },
+
+  verifyUser(username, password) {
+    if (!username || !password) return null;
+    const user = this.getUserByUsername(username);
+    if (!user) return null;
+
+    const { verifyPassword } = require('./auth-utils');
+    const isValid = verifyPassword(password, user.password_hash);
+    if (!isValid) return null;
+
+    const { password_hash, ...safeUser } = user;
+    return safeUser;
+  },
+
+  getAllUsers() {
+    return db.prepare('SELECT id, username, name, email, phone, role, created_at FROM users ORDER BY id ASC').all();
   }
 };
 
@@ -1175,8 +1247,66 @@ const InMemoryDatabase = {
       low_stock_items: inMemProducts.filter(p => p.stock_quantity <= 10).slice(0, 6),
       payment_breakdown: [{ payment_method: 'UPI', count: 1, total: 17480.61 }]
     };
+  },
+
+  // Authentication & Users in In-Memory Fallback
+  getUserByUsername: async (username) => {
+    if (!username) return null;
+    return inMemUsers.find(u => u.username.toLowerCase() === username.trim().toLowerCase()) || null;
+  },
+
+  getUserById: async (id) => {
+    const u = inMemUsers.find(x => x.id === Number(id));
+    if (!u) return null;
+    const { password_hash, ...safe } = u;
+    return safe;
+  },
+
+  createUser: async ({ username, password, name, email = '', phone = '', role = 'customer' }) => {
+    const clean = username.trim().toLowerCase();
+    if (inMemUsers.some(u => u.username.toLowerCase() === clean)) {
+      const err = new Error(`Username "${username}" is already taken. Please choose another username.`);
+      err.code = 'USER_EXISTS';
+      throw err;
+    }
+    const { hashPassword } = require('./auth-utils');
+    const id = inMemUsers.length + 1;
+    const newUser = {
+      id,
+      username: clean,
+      password_hash: hashPassword(password),
+      name: name.trim(),
+      email: (email || '').trim(),
+      phone: (phone || '').trim(),
+      role: role === 'admin' ? 'admin' : 'customer',
+      created_at: new Date().toISOString()
+    };
+    inMemUsers.push(newUser);
+    const { password_hash, ...safe } = newUser;
+    return safe;
+  },
+
+  verifyUser: async (username, password) => {
+    if (!username || !password) return null;
+    const u = inMemUsers.find(x => x.username.toLowerCase() === username.trim().toLowerCase());
+    if (!u) return null;
+    const { verifyPassword } = require('./auth-utils');
+    // If stored as plain in seed or hashed with salt
+    const isValid = u.password_hash === password || verifyPassword(password, u.password_hash);
+    if (!isValid) return null;
+    const { password_hash, ...safe } = u;
+    return safe;
+  },
+
+  getAllUsers: async () => {
+    return inMemUsers.map(({ password_hash, ...safe }) => safe);
   }
 };
+
+const inMemUsers = [
+  { id: 1, username: 'admin', password_hash: 'admin123', name: 'Surya Admin', email: 'admin@suryatextiles.com', phone: '+91 98765 43210', role: 'admin', created_at: new Date().toISOString() },
+  { id: 2, username: 'customer', password_hash: 'customer123', name: 'Aaradhya Sharma', email: 'aaradhya@example.com', phone: '9876501234', role: 'customer', created_at: new Date().toISOString() }
+];
 
 if (db) {
   initSchema();

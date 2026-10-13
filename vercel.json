@@ -12,6 +12,10 @@
     {
       "source": "/billing",
       "destination": "/billing.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
     }
   ]
 }
