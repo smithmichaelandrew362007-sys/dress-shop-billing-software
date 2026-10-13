@@ -70,10 +70,18 @@ const App = {
     if (document.getElementById('set-tax-rate')) document.getElementById('set-tax-rate').value = s.tax_rate || 5.0;
     if (document.getElementById('set-invoice-prefix')) document.getElementById('set-invoice-prefix').value = s.invoice_prefix || 'STX';
     if (document.getElementById('set-receipt-footer')) document.getElementById('set-receipt-footer').value = s.receipt_footer || '';
+    if (document.getElementById('set-theme-preference')) {
+      document.getElementById('set-theme-preference').value = localStorage.getItem('surya_theme') || 'system';
+    }
   },
 
   async saveSettings(e) {
     e.preventDefault();
+
+    const themeVal = document.getElementById('set-theme-preference')?.value;
+    if (themeVal && window.ThemeManager) {
+      window.ThemeManager.setTheme(themeVal, false);
+    }
 
     const payload = {
       store_name: document.getElementById('set-store-name').value.trim() || 'SURYA TEXTILES',

@@ -17,6 +17,20 @@
   <!-- Application Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/print.css">
+
+  <!-- Immediate Theme Initialization Script (Anti-Flicker) -->
+  <script>
+    (function () {
+      var s = localStorage.getItem('surya_theme') || 'system';
+      var e = s;
+      if (s === 'system') {
+        e = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', e);
+      document.documentElement.setAttribute('data-theme-setting', s);
+    })();
+  </script>
+  <script src="js/theme.js" defer></script>
 </head>
 <body>
 
@@ -69,6 +83,22 @@
       <span id="desktop-edition-badge" style="display: none; align-items: center; gap: 0.35rem; font-size: 0.75rem; background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-light); border: 1px solid var(--border-gold); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); font-weight: 600;">
         <i class="fas fa-desktop"></i> Desktop Edition
       </span>
+      <!-- Theme Switcher (Dark, Light, System) -->
+      <div class="theme-switch-control" role="group" aria-label="Theme Selection">
+        <button type="button" class="theme-opt-btn" data-theme-choice="dark" title="Dark Theme">
+          <i class="fas fa-moon"></i>
+          <span class="theme-text">Dark</span>
+        </button>
+        <button type="button" class="theme-opt-btn" data-theme-choice="light" title="Light Theme">
+          <i class="fas fa-sun"></i>
+          <span class="theme-text">Light</span>
+        </button>
+        <button type="button" class="theme-opt-btn" data-theme-choice="system" title="Follow System Theme">
+          <i class="fas fa-desktop"></i>
+          <span class="theme-text">System</span>
+        </button>
+      </div>
+
       <div class="live-clock-badge">
         <span class="live-indicator-dot"></span>
         <span id="live-clock-text">--:--:--</span>
@@ -643,6 +673,15 @@
               <label class="form-label">Invoice Prefix</label>
               <input type="text" class="form-control" id="set-invoice-prefix" value="LUM" />
             </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Theme Appearance</label>
+            <select class="form-control" id="set-theme-preference" onchange="ThemeManager.setTheme(this.value)">
+              <option value="system">Follow System / OS Theme</option>
+              <option value="dark">Dark Theme (Midnight Luxe)</option>
+              <option value="light">Light Theme (Ivory Elegance)</option>
+            </select>
           </div>
 
           <div class="form-group">
