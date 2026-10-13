@@ -1,17 +1,24 @@
 {
-  "name": "project",
+  "name": "dress-shop-billing-software",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Lumière Atelier - Luxury Dress Shop Website & POS Billing Software",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "electron": "electron .",
-    "desktop": "electron .",
-    "app": "electron .",
+    "electron": "electron main.js",
+    "desktop": "electron main.js",
+    "app": "electron main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dress-shop",
+    "billing-software",
+    "pos",
+    "boutique",
+    "electron",
+    "neon-postgres"
+  ],
+  "author": "Smith",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

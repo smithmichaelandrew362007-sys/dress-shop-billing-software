@@ -175,6 +175,11 @@ app.get('/api/analytics', async (req, res) => {
   }
 });
 
+// 404 handler for unknown API routes
+app.use('/api', (req, res) => {
+  res.status(404).json({ success: false, error: 'API endpoint not found' });
+});
+
 // Route for Billing POS counter
 app.get('/billing', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'billing.html'));
@@ -211,4 +216,6 @@ if (require.main === module) {
   });
 }
 
-module.exports = { app, startServer };
+app.startServer = startServer;
+module.exports = app;
+
