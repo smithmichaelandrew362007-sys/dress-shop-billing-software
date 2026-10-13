@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json.backup
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+
+# Operating System
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Distribution / Build
+dist/
+out/
+build/

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE ATELIER | Haute Couture, Heritage Weaves & Bespoke Dress Boutique</title>
+  <meta name="description" content="Official website for Lumière Atelier. Discover handcrafted bridal lehengas, pure Banarasi silk sarees, designer evening gowns, and tailored sherwanis.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <span><i class="fas fa-gem" style="color: var(--accent-gold);"></i> Spring / Festive Haute Couture 2026 Collection Now Available</span>
+    <span>•</span>
+    <span><i class="fas fa-award" style="color: var(--accent-gold);"></i> 100% Certified Pure Handloom & Silk</span>
+    <span>•</span>
+    <span><i class="fas fa-truck" style="color: var(--accent-gold);"></i> Insured Worldwide Delivery</span>
+  </div>
+
+  <!-- Main Website Navigation -->
+  <header class="top-navbar">
+    <a href="index.html" class="brand-wrapper">
+      <div class="brand-logo-icon">
+        <i class="fas fa-gem" style="font-size: 1.35rem;"></i>
+      </div>
+      <div class="brand-info">
+        <h1 class="brand-store-name">LUMIÈRE ATELIER</h1>
+        <span class="brand-store-tagline">Haute Couture & Ready-to-Wear</span>
+      </div>
+    </a>
+
+    <!-- Website Navigation Links -->
+    <nav>
+      <ul class="website-nav-links">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#dresses">Dress Catalog</a></li>
+        <li><a href="#heritage">Our Heritage</a></li>
+        <li><a href="#lookbook">Lookbook</a></li>
+        <li><a href="#visit">Boutique & Hours</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right Header Actions -->
+    <div class="nav-right-actions">
+      <a href="billing.html" class="btn btn-primary btn-sm" title="Open Point of Sale Billing Software">
+        <i class="fas fa-cash-register"></i> Billing & POS Terminal
+      </a>
+      <span id="desktop-edition-badge" style="display: none; align-items: center; gap: 0.35rem; font-size: 0.75rem; background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-light); border: 1px solid var(--border-gold); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); font-weight: 600;">
+        <i class="fas fa-desktop"></i> Desktop App
+      </span>
+      <div class="live-clock-badge">
+        <span class="live-indicator-dot"></span>
+        <span id="live-clock-text">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Website Main Body -->
+  <main class="main-content">
+
+    <!-- 1. Hero Showcase Section -->
+    <section class="storefront-hero" id="hero" style="margin-top: 1rem;">
+      <div class="hero-backdrop-pattern"></div>
+      <div class="hero-content">
+        <div>
+          <div class="hero-badge">
+            <i class="fas fa-crown"></i> Handcrafted Silk & Bespoke Couture
+          </div>
+          <h2 class="hero-title serif-heading">
+            Where Heritage Weaves Meet <br>
+            <span class="gold-gradient-text">Masterful Modern Couture</span>
+          </h2>
+          <p class="hero-description">
+            Step into our sanctuary of pure Banarasi silks, opulent Zardozi bridal lehengas, glamorous evening gowns, and tailored sherwanis created by generational artisans.
+          </p>
+          <div class="hero-actions">
+            <a href="#dresses" class="btn btn-primary btn-lg">
+              <i class="fas fa-sparkles"></i> Browse Dress Catalog
+            </a>
+            <a href="billing.html" class="btn btn-secondary btn-lg">
+              <i class="fas fa-receipt"></i> Counter Billing Software
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Dress Spotlight -->
+        <div class="hero-featured-card">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" alt="Royal Banarasi Saree" />
+          <div class="hero-featured-info">
+            <span class="dress-category-badge" style="margin-bottom: 0.4rem; display: inline-block;">Heritage Masterpiece</span>
+            <h4 class="serif-heading">Royal Banarasi Silk</h4>
+            <p>Handwoven pure katan silk with intricate antique gold zari brocade.</p>
+            <div class="hero-featured-price">₹8,499</div>
+            <button class="btn btn-outline-gold btn-sm" style="margin-top: 0.5rem;" onclick="Storefront.openQuickView(1)">
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Trust Badges Bar -->
+    <section class="trust-badges-bar">
+      <div class="trust-badge-item">
+        <i class="fas fa-ribbon"></i>
+        <div>
+          <h5>100% Pure Silk Certified</h5>
+          <p>Authentic Silk Mark & Katan weaves</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-hand-sparkles"></i>
+        <div>
+          <h5>Master Needlework</h5>
+          <p>Handcrafted Zardozi, Aari & Chikankari</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-tape"></i>
+        <div>
+          <h5>Bespoke Custom Tailoring</h5>
+          <p>Made-to-measure fitting service</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <h5>Insured Express Shipping</h5>
+          <p>Safe door-to-door worldwide delivery</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Featured Collection Showcase Tiles -->
+    <section id="collections" style="margin-top: 3rem;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">CURATED ATELIER EDIT</span>
+        <h2 class="serif-heading" style="font-size: 2.2rem; margin-top: 0.3rem;">Signature Collections</h2>
+      </div>
+
+      <div class="collections-showcase-grid">
+        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Bridal Lehengas" />
+          <div class="collection-showcase-overlay">
+            <h4>Bridal & Lehengas</h4>
+            <span>Heirloom Masterpieces</span>
+          </div>
+        </div>
+
+        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Sarees & Drapes" />
+          <div class="collection-showcase-overlay">
+            <h4>Sarees & Drapes</h4>
+            <span>Pure Katan, Banarasi & Organza</span>
+          </div>
+        </div>
+
+        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+          <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80" alt="Evening Gowns" />
+          <div class="collection-showcase-overlay">
+            <h4>Evening Gowns</h4>
+            <span>Velvet, Satin & Red Carpet Glamour</span>
+          </div>
+        </div>
+
+        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Men's Couture" />
+          <div class="collection-showcase-overlay">
+            <h4>Men's Couture</h4>
+            <span>Raw Silk Sherwanis & Tuxedos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Complete Dress Items Catalog (Live SQLite Database Integration) -->
+    <section id="dresses" style="padding-top: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">READY-TO-WEAR & BESPOKE</span>
+          <h2 class="serif-heading" style="font-size: 2.2rem; margin-top: 0.2rem;">Dress Items & Pricing</h2>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <a href="billing.html" class="btn btn-outline-gold btn-sm">
+            <i class="fas fa-calculator"></i> Open Billing Counter
+          </a>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills Bar -->
+      <div class="category-filter-scroll" id="storefront-cat-pills">
+        <!-- Injected via JavaScript from Database -->
+      </div>
+
+      <!-- Filter and Search Toolbar -->
+      <div class="storefront-toolbar">
+        <div class="search-input-wrap" style="flex: 1; max-width: 440px;">
+          <i class="fas fa-search"></i>
+          <input type="text" class="form-control" id="storefront-search-input" placeholder="Search dress by name, fabric, or SKU (e.g. Saree, Gown, Sherwani)..." />
+        </div>
+
+        <div class="storefront-filters-right">
+          <select class="form-control" id="storefront-gender-select" style="width: 140px;">
+            <option value="All">All Genders</option>
+            <option value="Women">Women's Wear</option>
+            <option value="Men">Men's Formals</option>
+            <option value="Kids">Kids & Teens</option>
+          </select>
+
+          <select class="form-control" id="storefront-sort-select" style="width: 180px;">
+            <option value="newest">Newest Arrivals</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="name_asc">Name: A to Z</option>
+          </select>
+
+          <span id="storefront-item-count" style="font-size: 0.85rem; color: var(--text-muted); margin-left: 0.5rem;">
+            Loading dresses...
+          </span>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="storefront-products-grid">
+        <!-- Rendered dynamically from database via storefront.js -->
+      </div>
+    </section>
+
+    <!-- 5. Artisanal Heritage & Craftsmanship Story -->
+    <section class="heritage-story-banner" id="heritage">
+      <div>
+        <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">HERITAGE & CRAFTSMANSHIP</span>
+        <h2 class="serif-heading" style="font-size: 2.4rem; margin: 0.5rem 0 1rem; line-height: 1.2;">
+          Three Decades of Pure Silk & Zardozi Mastery
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin-bottom: 1.5rem;">
+          Each ensemble at Lumière Atelier is conceived with reverence for generational craftsmanship. From the handloom pits of Varanasi and Kanchipuram to our Parisian draping atelier, each silk fiber is hand-dyed and embellished with authentic antique metallic threads.
+        </p>
+        <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+          <div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-gold);">30+</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Years Heritage</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-gold);">120+</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Master Weavers</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-gold);">15,000+</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Heirloom Brides</div>
+          </div>
+        </div>
+        <a href="#visit" class="btn btn-outline-gold">
+          <i class="fas fa-calendar-check"></i> Schedule an Atelier Fitting
+        </a>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80" alt="Craftsmanship atelier" />
+      </div>
+    </section>
+
+    <!-- 6. Editorial Lookbook Mosaic -->
+    <section id="lookbook">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">EDITORIAL CAMPAIGN</span>
+        <h2 class="serif-heading" style="font-size: 2.2rem; margin-top: 0.3rem;">Seasonal Lookbook</h2>
+      </div>
+
+      <div class="lookbook-mosaic">
+        <div class="lookbook-item">
+          <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80" alt="Lookbook 1" />
+        </div>
+        <div class="lookbook-item">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=500&q=80" alt="Lookbook 2" />
+        </div>
+        <div class="lookbook-item">
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80" alt="Lookbook 3" />
+        </div>
+        <div class="lookbook-item">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=500&q=80" alt="Lookbook 4" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Verified Client Reviews -->
+    <section>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">CLIENT TESTIMONIALS</span>
+        <h2 class="serif-heading" style="font-size: 2.2rem; margin-top: 0.3rem;">Words of Appreciation</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div style="color: var(--accent-gold); margin-bottom: 0.75rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "My bridal lehenga from Lumière Atelier was the centerpiece of my wedding. The intricacy of the Zardozi needlework and royal crimson silk felt regal and timeless."
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Aaradhya" class="testimonial-avatar" />
+            <div>
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">Aaradhya Sharma</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Bridal Ensemble Client</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color: var(--accent-gold); margin-bottom: 0.75rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "Their Italian wool tuxedo and raw silk sherwani fitted impeccably on the first try. The in-store billing and immediate invoice receipt service was effortless."
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Vikramaditya" class="testimonial-avatar" />
+            <div>
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">Vikramaditya Roy</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Groomswear & Black Tie Client</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color: var(--accent-gold); margin-bottom: 0.75rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "The pure Kanjivaram drape and emerald velvet evening gown are pieces of art. Truly a world-class luxury boutique shopping experience."
+          </p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Pooja" class="testimonial-avatar" />
+            <div>
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">Pooja Singhania</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">High Fashion Patron</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Boutique Visit, Hours & Contact -->
+    <section id="visit" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 3rem; margin: 3rem 0;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <div>
+          <span style="font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold);">FLAGSHIP BOUTIQUE</span>
+          <h2 class="serif-heading" style="font-size: 2.2rem; margin: 0.4rem 0 1rem;">Visit Our Atelier</h2>
+          <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+            Experience our entire collection in person. Private fitting lounges, dedicated master stylists, and bespoke bridal consultations are available by appointment or walk-in.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.92rem;">
+            <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+              <i class="fas fa-map-marker-alt" style="color: var(--accent-gold); margin-top: 4px;"></i>
+              <div>
+                <strong>Flagship Address:</strong><br>
+                42 Fashion Promenade, 2nd Floor, Luxury Design District
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+              <i class="fas fa-clock" style="color: var(--accent-gold); margin-top: 4px;"></i>
+              <div>
+                <strong>Boutique Hours:</strong><br>
+                Monday – Saturday: 10:00 AM – 9:00 PM<br>
+                Sunday: 11:00 AM – 7:00 PM
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+              <i class="fas fa-phone-alt" style="color: var(--accent-gold); margin-top: 4px;"></i>
+              <div>
+                <strong>Concierge & Orders:</strong> +91 98765 43210
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface-elevated); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-gold);">
+          <h4 class="serif-heading" style="font-size: 1.35rem; margin-bottom: 0.5rem;">Request a Private Fitting</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">Our bridal and couture stylists will reserve a dedicated suite for you.</p>
+
+          <form onsubmit="event.preventDefault(); alert('Thank you! Our concierge will contact you within 2 hours to confirm your private atelier appointment.'); this.reset();">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" placeholder="Your Name" required />
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" placeholder="Mobile Number" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Date</label>
+                <input type="date" class="form-control" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Interested Collection</label>
+              <select class="form-control">
+                <option>Bridal Lehengas & Wedding Trousseau</option>
+                <option>Pure Heritage Silk Sarees</option>
+                <option>Evening & Cocktail Gowns</option>
+                <option>Men's Groom Sherwanis & Tuxedos</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-check-circle"></i> Confirm Appointment Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Complete Website Footer in HTML -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 class="serif-heading brand-store-name" style="font-size: 1.4rem; color: var(--accent-gold); margin-bottom: 0.5rem;">LUMIÈRE ATELIER</h4>
+        <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.25rem;">
+          Haute couture boutique preserving heritage weaves, artisanal zardozi embroideries, and masterfully tailored luxury garments.
+        </p>
+        <div style="display: flex; gap: 0.85rem;">
+          <a href="#" class="btn btn-secondary btn-icon-only" style="border-radius: 50%;"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="btn btn-secondary btn-icon-only" style="border-radius: 50%;"><i class="fab fa-pinterest-p"></i></a>
+          <a href="#" class="btn btn-secondary btn-icon-only" style="border-radius: 50%;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="btn btn-secondary btn-icon-only" style="border-radius: 50%;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Collections</h5>
+        <ul>
+          <li><a href="#dresses">Bridal Lehengas</a></li>
+          <li><a href="#dresses">Banarasi & Kanjivaram Sarees</a></li>
+          <li><a href="#dresses">Evening Gowns</a></li>
+          <li><a href="#dresses">Anarkali & Sharara Sets</a></li>
+          <li><a href="#dresses">Men's Sherwanis & Suits</a></li>
+          <li><a href="#dresses">Kids Partywear</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Client Concierge</h5>
+        <ul>
+          <li><a href="#visit">Private Atelier Appointments</a></li>
+          <li><a href="#heritage">Artisanal Story</a></li>
+          <li><a href="#lookbook">Seasonal Lookbook</a></li>
+          <li><a href="#visit">Store Directions</a></li>
+          <li><a href="billing.html" style="color: var(--accent-gold); font-weight: 600;"><i class="fas fa-cash-register"></i> Staff Billing POS</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Atelier Newsletter</h5>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+          Receive private invitations to trunk shows, runway previews, and bespoke fabric arrivals.
+        </p>
+        <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to Lumière Atelier.'); this.reset();" style="display: flex; gap: 0.5rem;">
+          <input type="email" class="form-control" placeholder="Enter your email" required />
+          <button type="submit" class="btn btn-primary btn-sm">Join</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        &copy; 2026 Lumière Atelier Haute Couture. All rights reserved. GSTIN: 33AABCT9988C1ZR.
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="billing.html" style="color: var(--accent-gold); text-decoration: none;"><i class="fas fa-receipt"></i> Launch Billing Terminal</a>
+        <a href="#hero" style="color: var(--text-muted); text-decoration: none;">Back to Top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Product Quick View -->
+  <div class="modal-overlay" id="product-quickview-modal">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <h3>Dress Ensemble Preview</h3>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body" id="product-modal-body">
+        <!-- Injected via storefront.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/storefront.js"></script>
+  <script src="js/billing.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

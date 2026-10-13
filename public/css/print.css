@@ -1,0 +1,264 @@
+/* ==========================================================================
+   PRINT STYLES FOR LUMIÈRE ATELIER BILLING SOFTWARE
+   Supports both Standard A4 Full Tax Invoices & 80mm POS Thermal Receipts
+   ========================================================================== */
+
+#printable-invoice-container {
+  display: none;
+}
+
+@media print {
+  /* Hide all UI elements, navigation, buttons, and app content */
+  body * {
+    visibility: hidden;
+  }
+  
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #printable-invoice-container, #printable-invoice-container * {
+    visibility: visible;
+  }
+
+  #printable-invoice-container {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    color: #111;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    padding: 20mm;
+    box-sizing: border-box;
+  }
+
+  /* A4 Invoice Format */
+  .a4-invoice {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1a1a1a;
+  }
+
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #222;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  .print-store-name {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    color: #000;
+  }
+
+  .print-store-tagline {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .print-store-details {
+    font-size: 11px;
+    color: #333;
+    line-height: 1.4;
+  }
+
+  .print-inv-meta {
+    text-align: right;
+  }
+
+  .print-inv-badge {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .print-inv-number {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    font-family: monospace;
+  }
+
+  .print-inv-date {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .print-parties-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+
+  .print-party-box h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .print-party-box p {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .print-party-box small {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .print-table th {
+    background: #f0f0f0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 8px 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .print-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+  }
+
+  .print-table td.text-right, .print-table th.text-right {
+    text-align: right;
+  }
+
+  .print-table td.text-center, .print-table th.text-center {
+    text-align: center;
+  }
+
+  .print-totals-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+    margin-bottom: 25px;
+  }
+
+  .print-notes-box {
+    font-size: 11px;
+    color: #555;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+  }
+
+  .print-calc-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .print-calc-table td {
+    padding: 4px 0;
+    font-size: 12px;
+  }
+
+  .print-calc-table .grand-total-row td {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 8px 0;
+  }
+
+  .print-footer {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .print-terms {
+    font-size: 10px;
+    color: #666;
+    max-width: 480px;
+  }
+
+  .print-sign-box {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding-top: 5px;
+    width: 160px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* Thermal Receipt Mode (80mm) */
+  .thermal-receipt {
+    width: 78mm;
+    margin: 0 auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    line-height: 1.35;
+    padding: 5mm;
+  }
+
+  .thermal-receipt .print-store-name {
+    font-size: 16px;
+    text-align: center;
+    font-family: inherit;
+  }
+
+  .thermal-receipt .print-center {
+    text-align: center;
+  }
+
+  .thermal-receipt hr {
+    border: none;
+    border-top: 1px dashed #000;
+    margin: 6px 0;
+  }
+
+  .thermal-receipt table {
+    width: 100%;
+    font-size: 10px;
+    border-collapse: collapse;
+  }
+
+  .thermal-receipt td, .thermal-receipt th {
+    padding: 2px 0;
+  }
+}

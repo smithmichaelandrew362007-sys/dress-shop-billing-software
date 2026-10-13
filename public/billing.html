@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE ATELIER | Billing Software & POS Terminal</title>
+  <meta name="description" content="Point of Sale billing software for Lumière Atelier dress shop with barcode scanning, discounts, tax calculations, SQLite database, and invoice generation.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-navbar">
+    <a href="index.html" class="brand-wrapper" title="Back to Customer Website">
+      <div class="brand-logo-icon">
+        <i class="fas fa-gem" style="font-size: 1.35rem;"></i>
+      </div>
+      <div class="brand-info">
+        <h1 class="brand-store-name">LUMIÈRE ATELIER</h1>
+        <span class="brand-store-tagline">POS & Billing Counter Software</span>
+      </div>
+    </a>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tab-group" aria-label="Main Navigation">
+      <a href="index.html" class="nav-tab-btn" style="text-decoration: none;">
+        <i class="fas fa-store"></i> Customer Website
+      </a>
+      <button class="nav-tab-btn active" data-tab="billing">
+        <i class="fas fa-cash-register"></i> Billing POS Counter
+        <span class="nav-badge" id="nav-cart-count" style="display: none;">0</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="inventory">
+        <i class="fas fa-boxes-stacked"></i> Dress Inventory & DB
+      </button>
+      <button class="nav-tab-btn" data-tab="invoices">
+        <i class="fas fa-file-invoice-dollar"></i> Invoices & Sales
+      </button>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="nav-right-actions">
+      <span id="desktop-edition-badge" style="display: none; align-items: center; gap: 0.35rem; font-size: 0.75rem; background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-light); border: 1px solid var(--border-gold); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); font-weight: 600;">
+        <i class="fas fa-desktop"></i> Desktop Edition
+      </span>
+      <div class="live-clock-badge">
+        <span class="live-indicator-dot"></span>
+        <span id="live-clock-text">--:--:--</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="App.openModal('settings-modal')" title="Configure Boutique & Tax Settings">
+        <i class="fas fa-cog"></i> Settings
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN APPLICATION VIEWS
+       ========================================================================== -->
+  <main class="main-content">
+
+    <!-- VIEW 1: BILLING & POS COUNTER TERMINAL (ACTIVE BY DEFAULT) -->
+    <section class="view-section active-view" id="view-billing">
+      <div class="billing-layout">
+
+        <!-- Left: Item Catalog Quick Pick -->
+        <div class="pos-catalog-panel">
+          <div class="pos-catalog-header">
+            <div class="pos-search-barcode-box">
+              <div class="search-input-wrap">
+                <i class="fas fa-barcode"></i>
+                <input type="text" class="form-control" id="pos-search-input" placeholder="Scan Barcode / SKU or type dress name (Press Enter to quick add)..." autofocus />
+              </div>
+              <button class="btn btn-secondary btn-icon-only" onclick="document.getElementById('pos-search-input').value=''; Billing.searchQuery=''; Billing.loadCatalog();" title="Clear search">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <div class="pos-category-tabs" id="pos-category-tabs">
+              <button class="pos-cat-btn active" data-cat="">All Dresses</button>
+              <button class="pos-cat-btn" data-cat="1">Bridal & Lehengas</button>
+              <button class="pos-cat-btn" data-cat="2">Sarees</button>
+              <button class="pos-cat-btn" data-cat="3">Gowns</button>
+              <button class="pos-cat-btn" data-cat="4">Suits</button>
+              <button class="pos-cat-btn" data-cat="6">Men's Sherwanis</button>
+              <button class="pos-cat-btn" data-cat="7">Men's Suits</button>
+              <button class="pos-cat-btn" data-cat="8">Kids</button>
+            </div>
+          </div>
+
+          <!-- Items Grid -->
+          <div class="pos-items-grid" id="pos-items-grid">
+            <!-- Rendered by Billing.js -->
+          </div>
+        </div>
+
+        <!-- Right: Invoice Cart & Checkout Slip -->
+        <div class="pos-cart-panel">
+          <div class="pos-cart-header">
+            <div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">CURRENT BILL</div>
+              <div class="pos-inv-number" id="pos-invoice-seq-number">LUM-2026-#NEXT</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="Billing.clearCart()" title="Reset current bill">
+              <i class="fas fa-trash-alt"></i> Clear
+            </button>
+          </div>
+
+          <!-- Customer Details Quick Entry -->
+          <div class="customer-quick-entry">
+            <div class="customer-fields-grid">
+              <div>
+                <label class="form-label" style="font-size: 0.72rem; margin-bottom: 2px;">Customer Name</label>
+                <input type="text" class="form-control form-control-sm" id="pos-cust-name" placeholder="Walk-in Guest" />
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.72rem; margin-bottom: 2px;">Phone Number</label>
+                <input type="tel" class="form-control form-control-sm" id="pos-cust-phone" placeholder="Mobile Number" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Cart Items Container -->
+          <div class="cart-items-container">
+            <div class="cart-empty-state" id="pos-cart-empty-state">
+              <i class="fas fa-shopping-bag" style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;"></i>
+              <div style="font-weight: 600; font-size: 0.95rem;">Cart is currently empty</div>
+              <div style="font-size: 0.8rem; margin-top: 0.2rem;">Click any dress tile or scan barcode to add</div>
+            </div>
+
+            <div id="pos-cart-table-wrap" style="display: none;">
+              <table class="cart-table">
+                <thead>
+                  <tr>
+                    <th>Item / Size</th>
+                    <th style="width: 85px;">Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th style="width: 30px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="pos-cart-items-tbody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Billing Calculations Summary -->
+          <div class="bill-summary-card">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <strong id="pos-summary-subtotal">₹0.00</strong>
+            </div>
+
+            <!-- Discount controls -->
+            <div class="discount-input-row">
+              <select class="form-control" id="pos-discount-type" style="padding: 4px 6px; font-size: 0.8rem;">
+                <option value="percentage">Discount (%)</option>
+                <option value="flat">Discount (Flat ₹)</option>
+              </select>
+              <input type="number" class="form-control" id="pos-discount-value" value="0" min="0" step="any" placeholder="0" style="padding: 4px 8px; font-size: 0.8rem;" />
+            </div>
+
+            <div class="summary-row" style="color: var(--accent-emerald);">
+              <span>Discount Applied:</span>
+              <span id="pos-summary-discount">-₹0.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span id="pos-summary-tax-label">GST / Sales Tax (5%):</span>
+              <span id="pos-summary-tax">+₹0.00</span>
+            </div>
+
+            <div class="summary-row total-row">
+              <span>Grand Total:</span>
+              <span id="pos-summary-grandtotal">₹0.00</span>
+            </div>
+          </div>
+
+          <!-- Payment Mode Selection -->
+          <div style="margin-bottom: 0.4rem; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">
+            SELECT PAYMENT MODE
+          </div>
+          <div class="payment-methods-grid">
+            <div class="pay-method-pill active" data-method="Cash">
+              <i class="fas fa-money-bill-wave"></i> Cash
+            </div>
+            <div class="pay-method-pill" data-method="UPI">
+              <i class="fas fa-qrcode"></i> UPI / QR
+            </div>
+            <div class="pay-method-pill" data-method="Card">
+              <i class="fas fa-credit-card"></i> Card
+            </div>
+            <div class="pay-method-pill" data-method="Net Banking">
+              <i class="fas fa-university"></i> NetBank
+            </div>
+          </div>
+
+          <!-- Cash Tendered Box (shown when Cash is selected) -->
+          <div class="cash-tendered-box" id="pos-cash-box">
+            <div>
+              <label class="form-label" style="font-size: 0.72rem; margin-bottom: 2px;">Cash Received</label>
+              <input type="number" class="form-control" id="pos-cash-tendered-input" placeholder="0.00" />
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.72rem; margin-bottom: 2px;">Change to Return</label>
+              <div style="font-weight: 700; color: var(--accent-gold); font-size: 1.15rem; padding-top: 5px;" id="pos-change-due-amount">₹0.00</div>
+            </div>
+          </div>
+
+          <!-- Checkout CTA Buttons -->
+          <div class="checkout-actions-grid">
+            <button class="btn btn-primary" onclick="Billing.processCheckout('a4')" title="Save bill and print A4 invoice (Ctrl+Enter)">
+              <i class="fas fa-print"></i> Generate Bill (A4)
+            </button>
+            <button class="btn btn-secondary" onclick="Billing.processCheckout('thermal')" title="Quick POS Thermal Print">
+              <i class="fas fa-receipt"></i> Thermal POS (80mm)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 2: DRESS INVENTORY & DATABASE MANAGEMENT -->
+    <section class="view-section" id="view-inventory">
+      
+      <!-- Stats Summary -->
+      <div class="admin-stats-bar">
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-gold">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Total Dress Styles</h5>
+            <div class="stat-metric-value" id="inv-stat-styles">0</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-emerald">
+            <i class="fas fa-cubes"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Units in Stock</h5>
+            <div class="stat-metric-value" id="inv-stat-units">0</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-gold">
+            <i class="fas fa-vault"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Inventory Valuation</h5>
+            <div class="stat-metric-value" id="inv-stat-value">₹0</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-rose">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Low Stock Alerts</h5>
+            <div class="stat-metric-value" id="inv-stat-low" style="color: var(--accent-amber);">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory Toolbar -->
+      <div class="admin-toolbar">
+        <div style="display: flex; gap: 0.75rem; flex: 1; max-width: 600px;">
+          <div class="search-input-wrap" style="flex: 1;">
+            <i class="fas fa-search"></i>
+            <input type="text" class="form-control" id="inv-search-input" placeholder="Search database by dress name, SKU, or fabric..." />
+          </div>
+          <select class="form-control" id="inv-filter-category" style="width: 180px;" onchange="Inventory.searchQuery=this.value; Inventory.loadTable();">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" onclick="Inventory.openAddModal()">
+          <i class="fas fa-plus-circle"></i> Add New Dress to Database
+        </button>
+      </div>
+
+      <!-- Data Table -->
+      <div class="data-table-card">
+        <div class="data-table-responsive">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">Image</th>
+                <th>Dress Name & SKU</th>
+                <th>Category</th>
+                <th>Fabric / Material</th>
+                <th>Sizes</th>
+                <th>Retail Price</th>
+                <th>Stock Units</th>
+                <th>Margin</th>
+                <th style="width: 100px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table-tbody">
+              <!-- Rendered via inventory.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: INVOICES & SALES HISTORY -->
+    <section class="view-section" id="view-invoices">
+      
+      <!-- Analytics Summary Bar -->
+      <div class="admin-stats-bar" style="margin-bottom: 2rem;">
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-emerald">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Today's Gross Sales</h5>
+            <div class="stat-metric-value" id="sales-stat-today-rev">₹0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-gold">
+            <i class="fas fa-coins"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>All-Time Revenue</h5>
+            <div class="stat-metric-value" id="sales-stat-total-rev">₹0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-gold">
+            <i class="fas fa-receipt"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Total Bills Issued</h5>
+            <div class="stat-metric-value" id="sales-stat-total-bills">0</div>
+          </div>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="stat-icon-box stat-icon-rose">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <div class="stat-metric-info">
+            <h5>Average Bill Value</h5>
+            <div class="stat-metric-value" id="sales-stat-avg-bill">₹0</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-bottom: 1.5rem;">
+        
+        <!-- Left: Invoices Table -->
+        <div>
+          <div class="invoices-header-bar">
+            <div style="display: flex; gap: 0.75rem; flex: 1;">
+              <div class="search-input-wrap" style="flex: 1;">
+                <i class="fas fa-search"></i>
+                <input type="text" class="form-control" id="invoices-search-input" placeholder="Search by Invoice #, Customer Name, or Phone..." />
+              </div>
+              <input type="date" class="form-control" id="invoices-date-input" style="width: 160px;" />
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('invoices-search-input').value=''; document.getElementById('invoices-date-input').value=''; Invoices.searchQuery=''; Invoices.dateFilter=''; Invoices.loadInvoices();">
+              <i class="fas fa-sync-alt"></i> Reset
+            </button>
+          </div>
+
+          <div class="data-table-card">
+            <div class="data-table-responsive">
+              <table class="modern-table">
+                <thead>
+                  <tr>
+                    <th>Invoice No</th>
+                    <th>Date & Time</th>
+                    <th>Customer</th>
+                    <th>Payment</th>
+                    <th>Subtotal</th>
+                    <th>Grand Total</th>
+                    <th>Status</th>
+                    <th>Print</th>
+                  </tr>
+                </thead>
+                <tbody id="invoices-table-tbody">
+                  <!-- Rendered via invoices.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Top Selling Dresses Leaderboard -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem;">
+          <h4 class="serif-heading" style="font-size: 1.15rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-crown" style="color: var(--accent-gold); font-size: 1rem;"></i> Bestseller Dresses
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Most purchased ensembles by volume</p>
+          <div id="top-selling-dresses-list">
+            <!-- Populated via analytics API -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+
+  <!-- Modal 1: Add / Edit Dress Item in Database -->
+  <div class="modal-overlay" id="inventory-item-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="inv-modal-title">Add New Dress to Database</h3>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="inv-dress-form">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 140px; gap: 1.25rem; margin-bottom: 1rem;">
+            <div>
+              <div class="form-group">
+                <label class="form-label">Dress Ensemble Name *</label>
+                <input type="text" class="form-control" id="inv-item-name" placeholder="e.g. Royal Banarasi Silk Saree" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">SKU / Item Code *</label>
+                <input type="text" class="form-control" id="inv-item-sku" placeholder="LUM-DRS-001" required />
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <label class="form-label">Image Preview</label>
+              <img id="inv-img-preview" src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=400&q=80" 
+                   alt="Preview" style="width: 120px; height: 130px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select class="form-control" id="inv-item-category">
+                <!-- Loaded from DB -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gender / Department</label>
+              <select class="form-control" id="inv-item-gender">
+                <option value="Women">Women's Wear</option>
+                <option value="Men">Men's Formals</option>
+                <option value="Kids">Kids & Teens</option>
+                <option value="Unisex">Unisex Accessories</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Fabric / Material</label>
+              <input type="text" class="form-control" id="inv-item-fabric" placeholder="e.g. Pure Katan Silk, Chiffon, Velvet" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Available Sizes (comma-separated)</label>
+              <input type="text" class="form-control" id="inv-item-sizes" placeholder="XS, S, M, L, XL, Free Size" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Color Options</label>
+            <input type="text" class="form-control" id="inv-item-colors" placeholder="e.g. Crimson Red, Gold, Emerald Green" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Retail Price (₹) *</label>
+              <input type="number" class="form-control" id="inv-item-price" min="0" step="any" placeholder="8499" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cost Price (₹)</label>
+              <input type="number" class="form-control" id="inv-item-cost" min="0" step="any" placeholder="5200" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Stock Quantity *</label>
+              <input type="number" class="form-control" id="inv-item-stock" min="0" placeholder="15" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Image URL</label>
+            <input type="url" class="form-control" id="inv-item-img" placeholder="https://images.unsplash.com/..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Detailed Description</label>
+            <textarea class="form-control" id="inv-item-desc" rows="3" placeholder="Craftsmanship details, embroidery, wash care notes..."></textarea>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="inv-item-featured" style="width: 18px; height: 18px; accent-color: var(--accent-gold);" />
+            <label for="inv-item-featured" style="font-size: 0.88rem; cursor: pointer;">Display as Featured on Storefront</label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save to Database
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: View Invoice Details -->
+  <div class="modal-overlay" id="view-invoice-modal">
+    <div class="modal-container" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3>Invoice Details</h3>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body" id="view-invoice-modal-body">
+        <!-- Rendered via invoices.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: UPI QR Payment Scanner -->
+  <div class="modal-overlay" id="upi-qr-modal">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>UPI Payment QR Code</h3>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="upi-qr-card">
+          <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">SCAN & PAY AMOUNT</div>
+          <div class="upi-amount-display" id="upi-modal-amount">₹0.00</div>
+          
+          <div class="upi-qr-box" id="upi-qr-box">
+            <!-- Dynamic QR Image rendered here -->
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Customer can scan using Google Pay, PhonePe, Paytm, or any BHIM UPI app.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+        <button class="btn btn-emerald" onclick="Billing.confirmUpiPayment()">
+          <i class="fas fa-check-circle"></i> Confirm Payment Received
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Boutique Store & Tax Settings -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Boutique & Tax Configuration</h3>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="shop-settings-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Boutique / Shop Name</label>
+            <input type="text" class="form-control" id="set-store-name" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tagline</label>
+            <input type="text" class="form-control" id="set-store-tagline" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Store Address</label>
+            <textarea class="form-control" id="set-address" rows="2"></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Phone / Contact</label>
+              <input type="text" class="form-control" id="set-phone" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Concierge Email</label>
+              <input type="email" class="form-control" id="set-email" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">GSTIN / Tax ID</label>
+              <input type="text" class="form-control" id="set-gstin" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Currency Symbol</label>
+              <input type="text" class="form-control" id="set-currency" style="width: 80px;" value="₹" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Default GST / Tax Rate (%)</label>
+              <input type="number" class="form-control" id="set-tax-rate" step="0.1" value="5.0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Invoice Prefix</label>
+              <input type="text" class="form-control" id="set-invoice-prefix" value="LUM" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Receipt Footer Note / Return Policy</label>
+            <textarea class="form-control" id="set-receipt-footer" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Configuration
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hidden Container for Direct Browser Printing -->
+  <div id="printable-invoice-container"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/billing.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/invoices.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Ensure default active tab is billing on billing.html
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof App !== 'undefined') {
+        App.switchTab('billing');
+      }
+    });
+  </script>
+</body>
+</html>
