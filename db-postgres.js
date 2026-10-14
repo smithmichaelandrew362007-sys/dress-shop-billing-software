@@ -26,7 +26,7 @@ async function initPostgresSchema() {
   await p.query(`
     CREATE TABLE IF NOT EXISTS settings (
       id INT PRIMARY KEY DEFAULT 1,
-      store_name TEXT NOT NULL DEFAULT 'SURYA TEXTILES',
+      store_name TEXT NOT NULL DEFAULT 'SURYA TEXTILES A BILLING SOFTWARE',
       store_tagline TEXT NOT NULL DEFAULT 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
       address TEXT NOT NULL DEFAULT '42 Fashion Promenade, 2nd Floor, Design District',
       phone TEXT NOT NULL DEFAULT '+91 98765 43210',
@@ -142,7 +142,7 @@ async function initPostgresSchema() {
   if (parseInt(settingsRes.rows[0].count, 10) === 0) {
     await p.query(`
       INSERT INTO settings (id, store_name, store_tagline, address, phone, email, gstin, currency, tax_rate, invoice_prefix)
-      VALUES (1, 'SURYA TEXTILES', 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'contact@suryatextiles.com', '33AABCT9988C1ZR', '₹', 5.0, 'STX')
+      VALUES (1, 'SURYA TEXTILES A BILLING SOFTWARE', 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'contact@suryatextiles.com', '33AABCT9988C1ZR', '₹', 5.0, 'STX')
     `);
   }
 

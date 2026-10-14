@@ -1,7 +1,7 @@
 {
-  "name": "dress-shop-billing-software",
+  "name": "surya-textiles-a-billing-software",
   "version": "1.0.0",
-  "description": "Surya Textiles - Luxury Dress Shop Website & POS Billing Software",
+  "description": "SURYA TEXTILES A BILLING SOFTWARE",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

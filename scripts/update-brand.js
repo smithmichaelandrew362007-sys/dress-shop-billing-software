@@ -10,14 +10,14 @@ if (fs.existsSync(dbPath)) {
     const db = new DatabaseSync(dbPath);
     db.prepare(`
       UPDATE settings SET
-        store_name = 'SURYA TEXTILES',
+        store_name = 'SURYA TEXTILES A BILLING SOFTWARE',
         store_tagline = 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
         email = 'contact@suryatextiles.com',
         invoice_prefix = 'STX',
-        receipt_footer = 'Thank you for shopping with Surya Textiles! Exchange within 7 days with original invoice & tag intact.'
+        receipt_footer = 'Thank you for shopping with SURYA TEXTILES A BILLING SOFTWARE! Exchange within 7 days with original invoice & tag intact.'
       WHERE id = 1
     `).run();
-    console.log('✅ SQLite boutique.db settings updated to SURYA TEXTILES');
+    console.log('✅ SQLite boutique.db settings updated to SURYA TEXTILES A BILLING SOFTWARE');
   } catch (err) {
     console.log('SQLite update notice:', err.message);
   }
@@ -33,14 +33,14 @@ if (process.env.DATABASE_URL) {
 
   pool.query(`
     UPDATE settings SET
-      store_name = 'SURYA TEXTILES',
+      store_name = 'SURYA TEXTILES A BILLING SOFTWARE',
       store_tagline = 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
       email = 'contact@suryatextiles.com',
       invoice_prefix = 'STX',
-      receipt_footer = 'Thank you for shopping with Surya Textiles! Exchange within 7 days with original invoice & tag intact.'
+      receipt_footer = 'Thank you for shopping with SURYA TEXTILES A BILLING SOFTWARE! Exchange within 7 days with original invoice & tag intact.'
     WHERE id = 1
   `).then(() => {
-    console.log('✅ Neon PostgreSQL settings updated to SURYA TEXTILES');
+    console.log('✅ Neon PostgreSQL settings updated to SURYA TEXTILES A BILLING SOFTWARE');
     pool.end();
   }).catch((err) => {
     console.error('Neon update notice:', err.message);

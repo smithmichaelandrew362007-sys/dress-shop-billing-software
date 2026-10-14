@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * SURYA TEXTILES - THEME MANAGER (Dark, Light, System)
+ * SURYA TEXTILES A BILLING SOFTWARE - THEME MANAGER (Dark, Light, System)
  * Handles instant theme switching, localStorage persistence, and dynamic OS
  * prefers-color-scheme detection and updates.
  * ==========================================================================

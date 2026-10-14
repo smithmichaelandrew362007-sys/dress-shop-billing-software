@@ -54,7 +54,7 @@ function initSchema() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS settings (
       id INTEGER PRIMARY KEY CHECK (id = 1),
-      store_name TEXT NOT NULL DEFAULT 'SURYA TEXTILES',
+      store_name TEXT NOT NULL DEFAULT 'SURYA TEXTILES A BILLING SOFTWARE',
       store_tagline TEXT NOT NULL DEFAULT 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
       address TEXT NOT NULL DEFAULT '42 Fashion Promenade, 2nd Floor, Design District',
       phone TEXT NOT NULL DEFAULT '+91 98765 43210',
@@ -172,7 +172,7 @@ function initSchema() {
   if (settingsCount.count === 0) {
     db.prepare(`
       INSERT INTO settings (id, store_name, store_tagline, address, phone, email, gstin, currency, tax_rate, invoice_prefix)
-      VALUES (1, 'SURYA TEXTILES', 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'contact@suryatextiles.com', '33AABCT9988C1ZR', '₹', 5.0, 'STX')
+      VALUES (1, 'SURYA TEXTILES A BILLING SOFTWARE', 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles', '42 Fashion Promenade, 2nd Floor, Design District', '+91 98765 43210', 'contact@suryatextiles.com', '33AABCT9988C1ZR', '₹', 5.0, 'STX')
     `).run();
   }
 
@@ -1393,7 +1393,7 @@ const Database = {
 // In-Memory Fallback Database for zero-downtime resilient hosting (e.g. Vercel before DATABASE_URL is set)
 const inMemSettings = {
   id: 1,
-  store_name: 'SURYA TEXTILES',
+  store_name: 'SURYA TEXTILES A BILLING SOFTWARE',
   store_tagline: 'Premium Silks, Heritage Weaves & Ready-to-Wear Textiles',
   address: '42 Fashion Promenade, 2nd Floor, Design District',
   phone: '+91 98765 43210',

@@ -1,6 +1,6 @@
-# SURYA TEXTILES — Luxury Dress Shop & Billing Software
+# SURYA TEXTILES A BILLING SOFTWARE
 
-An all-in-one web application combining an **editorial fashion boutique storefront website** with a high-speed **Point-of-Sale (POS) Billing Software** and a **persistent SQLite Database** for managing dress items, prices, inventory, and customer invoices.
+An all-in-one web and desktop application combining an **editorial fashion boutique storefront website** with a high-speed **Point-of-Sale (POS) Billing Software** and a **persistent Database** for managing dress items, prices, inventory, and customer invoices.
 
 ---
 

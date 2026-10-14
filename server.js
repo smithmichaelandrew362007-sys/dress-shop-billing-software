@@ -273,7 +273,7 @@ app.use((req, res) => {
 function startServer(port = PORT) {
   return new Promise((resolve, reject) => {
     const srv = app.listen(port, () => {
-      console.log(`✨ Boutique & Dress Billing Software server running at http://localhost:${port}`);
+      console.log(`✨ SURYA TEXTILES A BILLING SOFTWARE server running at http://localhost:${port}`);
       resolve({ app, server: srv, port });
     }).on('error', (err) => {
       if (err.code === 'EADDRINUSE') {

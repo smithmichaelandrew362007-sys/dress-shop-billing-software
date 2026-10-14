@@ -58,7 +58,7 @@ async function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 720,
-    title: 'SURYA TEXTILES — Dress Shop Billing & Catalog',
+    title: 'SURYA TEXTILES A BILLING SOFTWARE',
     backgroundColor: '#0a0d14',
     show: false, // Show once ready-to-show to prevent white flash
     webPreferences: {
@@ -168,12 +168,12 @@ function setupAppMenu() {
       label: 'Help',
       submenu: [
         {
-          label: 'About Surya Textiles',
+          label: 'About SURYA TEXTILES A BILLING SOFTWARE',
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
-              title: 'Surya Textiles Desktop',
-              message: 'Surya Textiles — Luxury Dress Shop Billing & Catalog',
+              title: 'SURYA TEXTILES A BILLING SOFTWARE Desktop',
+              message: 'SURYA TEXTILES A BILLING SOFTWARE',
               detail: `Desktop Edition powered by Electron ${process.versions.electron}\nNode.js ${process.versions.node}\nChromium ${process.versions.chrome}\nDual Database Engine (Neon PostgreSQL / Local SQLite)`,
               buttons: ['OK']
             });

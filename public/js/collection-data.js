@@ -1,5 +1,5 @@
 /**
- * Surya Textiles - Signature Collections Dataset & Engine
+ * SURYA TEXTILES A BILLING SOFTWARE - Signature Collections Dataset & Engine
  * Powers dedicated collection pages (Evening Gowns, Bridal Lehengas, Sarees & Drapes, Men's Couture)
  */
 const COLLECTIONS_DATA = {
@@ -607,7 +607,7 @@ const CollectionPage = {
 
   renderHeroBanner() {
     const d = this.data;
-    document.title = `${d.title} | Signature Collection | Surya Textiles`;
+    document.title = `${d.title} | Signature Collection | SURYA TEXTILES A BILLING SOFTWARE`;
 
     const elTitle = document.getElementById('collection-hero-title');
     const elSub = document.getElementById('collection-hero-subtitle');

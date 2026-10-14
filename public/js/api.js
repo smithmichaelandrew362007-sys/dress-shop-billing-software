@@ -1,5 +1,5 @@
 /**
- * API Service Client for Dress Shop Billing & Website
+ * API Service Client for SURYA TEXTILES A BILLING SOFTWARE
  */
 const API = {
   baseUrl: '/api',

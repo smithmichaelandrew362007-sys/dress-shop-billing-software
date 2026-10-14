@@ -22,7 +22,7 @@ const App = {
       if (typeof Inventory !== 'undefined') await Inventory.init();
       if (typeof Invoices !== 'undefined') await Invoices.init();
 
-      console.log('✨ Surya Textiles Boutique & Billing Software initialized successfully');
+      console.log('✨ SURYA TEXTILES A BILLING SOFTWARE initialized successfully');
     } catch (err) {
       console.error('App initialization error:', err);
     }
@@ -84,7 +84,7 @@ const App = {
     }
 
     const payload = {
-      store_name: document.getElementById('set-store-name').value.trim() || 'SURYA TEXTILES',
+      store_name: document.getElementById('set-store-name').value.trim() || 'SURYA TEXTILES A BILLING SOFTWARE',
       store_tagline: document.getElementById('set-store-tagline').value.trim() || 'Premium Silks & Textiles',
       address: document.getElementById('set-address').value.trim(),
       phone: document.getElementById('set-phone').value.trim(),
