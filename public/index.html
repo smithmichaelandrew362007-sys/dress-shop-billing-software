@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Surya Textiles | Premium Silks, Heritage Weaves & Bespoke Dress Boutique</title>
   <meta name="description" content="Official website for Surya Textiles. Discover handcrafted bridal lehengas, pure Banarasi silk sarees, designer evening gowns, and tailored sherwanis.">
 
@@ -55,8 +55,8 @@
       </div>
     </a>
 
-    <!-- Website Navigation Links -->
-    <nav>
+    <!-- Desktop Website Navigation Links -->
+    <nav class="desktop-nav-wrap">
       <ul class="website-nav-links">
         <li><a href="#hero" class="active">Home</a></li>
         <li><a href="#collections">Collections</a></li>
@@ -72,7 +72,7 @@
       <!-- User Auth State -->
       <div id="nav-user-area" style="display: flex; align-items: center; gap: 0.5rem;">
         <a href="login.html" id="btn-nav-login" class="btn btn-outline-gold btn-sm" style="text-decoration: none;">
-          <i class="fas fa-user-circle"></i> Sign In / Register
+          <i class="fas fa-user-circle"></i> <span class="nav-btn-text">Sign In</span>
         </a>
         <div id="nav-user-profile-badge" style="display: none; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.3); padding: 0.25rem 0.75rem; border-radius: 9999px;">
           <span id="nav-user-name" style="font-size: 0.82rem; font-weight: 600; color: var(--accent-gold);"></span>
@@ -83,7 +83,7 @@
       </div>
 
       <a href="billing.html" class="btn btn-primary btn-sm" title="Open Point of Sale Billing Software">
-        <i class="fas fa-cash-register"></i> Billing POS
+        <i class="fas fa-cash-register"></i> <span class="nav-btn-text">Billing POS</span>
       </a>
       <span id="desktop-edition-badge" style="display: none; align-items: center; gap: 0.35rem; font-size: 0.75rem; background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-light); border: 1px solid var(--border-gold); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); font-weight: 600;">
         <i class="fas fa-desktop"></i> Desktop App
@@ -108,8 +108,74 @@
         <span class="live-indicator-dot"></span>
         <span id="live-clock-text">--:--:--</span>
       </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Slide-over Drawer Navigation -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-header">
+      <div class="brand-wrapper">
+        <div class="brand-logo-icon" style="width: 34px; height: 34px;">
+          <i class="fas fa-gem" style="font-size: 1.15rem;"></i>
+        </div>
+        <div class="brand-info">
+          <h2 class="brand-store-name" style="font-size: 1.05rem; margin: 0; line-height: 1.1;">SURYA TEXTILES</h2>
+          <span class="brand-store-tagline" style="font-size: 0.65rem;">Luxury Dress Boutique</span>
+        </div>
+      </div>
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close Navigation Menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#collections" class="mobile-nav-link"><i class="fas fa-sparkles"></i> Collections</a></li>
+        <li><a href="#dresses" class="mobile-nav-link"><i class="fas fa-vest-patches"></i> Dress Catalog</a></li>
+        <li><a href="#heritage" class="mobile-nav-link"><i class="fas fa-landmark"></i> Our Heritage</a></li>
+        <li><a href="#lookbook" class="mobile-nav-link"><i class="fas fa-camera-retro"></i> Lookbook</a></li>
+        <li><a href="#visit" class="mobile-nav-link"><i class="fas fa-map-marker-alt"></i> Boutique & Hours</a></li>
+      </ul>
+
+      <div class="mobile-drawer-divider"></div>
+
+      <div class="mobile-drawer-actions">
+        <div id="drawer-user-area">
+          <a href="login.html" class="btn btn-outline-gold btn-sm" style="width: 100%; justify-content: center; display: flex; text-decoration: none;">
+            <i class="fas fa-user-circle"></i> Sign In / Register
+          </a>
+        </div>
+        <a href="billing.html" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; display: flex; text-decoration: none; margin-top: 0.5rem;">
+          <i class="fas fa-cash-register"></i> Open Billing POS Software
+        </a>
+      </div>
+
+      <div class="mobile-drawer-footer">
+        <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Theme Appearance</span>
+        <div class="theme-switch-control" style="width: 100%; justify-content: space-around; display: flex;" role="group" aria-label="Theme Selection">
+          <button type="button" class="theme-opt-btn" data-theme-choice="dark" title="Dark Theme">
+            <i class="fas fa-moon"></i>
+            <span>Dark</span>
+          </button>
+          <button type="button" class="theme-opt-btn" data-theme-choice="light" title="Light Theme">
+            <i class="fas fa-sun"></i>
+            <span>Light</span>
+          </button>
+          <button type="button" class="theme-opt-btn" data-theme-choice="system" title="Follow System Theme">
+            <i class="fas fa-desktop"></i>
+            <span>System</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- Website Main Body -->
   <main class="main-content">

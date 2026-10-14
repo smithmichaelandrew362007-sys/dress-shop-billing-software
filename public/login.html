@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Login & Account Portal | Surya Textiles</title>
   <meta name="description" content="Sign in or register for Surya Textiles. Dedicated portal for customer boutique accounts and staff/admin POS management.">
 
@@ -357,6 +357,67 @@
       display: grid;
       gap: 0.75rem;
       margin-top: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .auth-header {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.65rem;
+        align-items: center;
+      }
+      .auth-header .brand-wrapper {
+        justify-content: center;
+      }
+      .auth-nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .auth-main-container {
+        padding: 1.25rem 0.75rem;
+      }
+      .auth-card {
+        border-radius: 14px;
+      }
+      .auth-card-body {
+        padding: 1.5rem 1.15rem;
+      }
+      .auth-tab-btn {
+        padding: 0.75rem 0.25rem;
+        font-size: 0.75rem;
+      }
+      .auth-tab-btn i {
+        font-size: 1rem;
+      }
+      .auth-title-area h2 {
+        font-size: 1.45rem;
+      }
+      .demo-credentials-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-quick-fill {
+        align-self: flex-start;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 550px) {
+      .auth-header {
+        padding: 0.4rem 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .auth-main-container {
+        padding: 1rem;
+      }
+      .auth-card-body {
+        padding: 1.25rem;
+      }
+      .auth-title-area {
+        margin-bottom: 0.75rem;
+      }
     }
   </style>
 </head>

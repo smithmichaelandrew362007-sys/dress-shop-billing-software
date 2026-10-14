@@ -124,6 +124,11 @@ const App = {
       btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
     });
 
+    // Update mobile bottom tab buttons
+    document.querySelectorAll('.mobile-bottom-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+    });
+
     // Update view panels
     document.querySelectorAll('.view-section').forEach(view => {
       view.classList.toggle('active-view', view.id === `view-${tabId}`);
@@ -281,6 +286,35 @@ const AuthHelper = {
     } else {
       if (loginBtn) loginBtn.style.display = 'inline-flex';
       if (badge) badge.style.display = 'none';
+    }
+
+    // Sync drawer user area if present
+    const drawerUserArea = document.getElementById('drawer-user-area');
+    if (drawerUserArea) {
+      if (user && user.username) {
+        drawerUserArea.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface-elevated); border: 1px solid var(--border-gold); padding: 0.65rem 0.85rem; border-radius: var(--radius-md);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--accent-gold); color: #000; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+                ${(user.name || user.username).charAt(0).toUpperCase()}
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 0.88rem; color: var(--text-primary);">${user.name || user.username}</div>
+                <div style="font-size: 0.7rem; color: var(--accent-gold); text-transform: uppercase;">${user.role}</div>
+              </div>
+            </div>
+            <button onclick="AuthHelper.logout()" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.55rem; font-size: 0.75rem;" title="Sign Out">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        drawerUserArea.innerHTML = `
+          <a href="login.html" class="btn btn-outline-gold btn-sm" style="width: 100%; justify-content: center; display: flex; text-decoration: none;">
+            <i class="fas fa-user-circle"></i> Sign In / Register
+          </a>
+        `;
+      }
     }
   },
 

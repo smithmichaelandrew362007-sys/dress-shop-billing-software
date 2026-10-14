@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Surya Textiles | Billing Software & POS Terminal</title>
   <meta name="description" content="Point of Sale billing software for Surya Textiles dress shop with barcode scanning, discounts, tax calculations, persistent database, and invoice generation.">
 
@@ -32,7 +32,7 @@
   </script>
   <script src="js/theme.js" defer></script>
 </head>
-<body>
+<body class="has-bottom-nav">
 
   <!-- ==========================================================================
        TOP NAVIGATION BAR
@@ -703,8 +703,40 @@
   <!-- Hidden Container for Direct Browser Printing -->
   <div id="printable-invoice-container"></div>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toast-container"></div>
+  <!-- Floating Mobile Cart Bar (Active on phone when on POS tab) -->
+  <div class="mobile-cart-float-bar" id="mobile-cart-float-bar" onclick="Billing.scrollToCart()">
+    <div class="cart-float-info">
+      <span class="cart-float-icon"><i class="fas fa-shopping-bag"></i></span>
+      <div>
+        <div class="cart-float-qty" id="cart-float-qty">0 items in bill</div>
+        <div class="cart-float-amt" id="cart-float-amt">₹0.00</div>
+      </div>
+    </div>
+    <div class="cart-float-btn">
+      Bill & Pay <i class="fas fa-arrow-right"></i>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar for POS App -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile View Navigation">
+    <button class="mobile-bottom-tab active" data-tab="billing" onclick="App.switchTab('billing')">
+      <i class="fas fa-cash-register"></i>
+      <span>POS Counter</span>
+      <span class="mobile-nav-badge" id="mobile-nav-cart-badge" style="display: none;">0</span>
+    </button>
+    <button class="mobile-bottom-tab" data-tab="inventory" onclick="App.switchTab('inventory')">
+      <i class="fas fa-boxes-stacked"></i>
+      <span>Inventory DB</span>
+    </button>
+    <button class="mobile-bottom-tab" data-tab="invoices" onclick="App.switchTab('invoices')">
+      <i class="fas fa-file-invoice-dollar"></i>
+      <span>Invoices</span>
+    </button>
+    <a href="index.html" class="mobile-bottom-tab" style="text-decoration: none;">
+      <i class="fas fa-store"></i>
+      <span>Storefront</span>
+    </a>
+  </nav>
 
   <!-- Application Scripts -->
   <script src="js/api.js"></script>

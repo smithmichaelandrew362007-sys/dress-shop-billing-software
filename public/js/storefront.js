@@ -328,5 +328,36 @@ const Storefront = {
         this.loadProducts();
       });
     }
+
+    // Mobile Drawer Navigation toggle and close
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+
+    const openDrawer = () => {
+      if (drawer) drawer.classList.add('active');
+      if (backdrop) backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      if (drawer) drawer.classList.remove('active');
+      if (backdrop) backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    if (mobileToggle) mobileToggle.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    // Auto-close when clicking any drawer link
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+        document.querySelectorAll('.mobile-nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
   }
 };

@@ -317,14 +317,49 @@ const Billing = {
     if (cashInput && !cashInput.value && this.paymentMethod === 'Cash') {
       cashInput.placeholder = totals.grandTotal.toFixed(2);
     }
+
+    // Sync mobile floating cart bar
+    this.updateFloatingCartBar(totals);
+  },
+
+  updateFloatingCartBar(totals) {
+    const floatBar = document.getElementById('mobile-cart-float-bar');
+    const floatQty = document.getElementById('cart-float-qty');
+    const floatAmt = document.getElementById('cart-float-amt');
+    const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (floatQty) floatQty.textContent = totalItems;
+    if (floatAmt) floatAmt.textContent = `${totals.currency}${totals.grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+    if (floatBar) {
+      if (totalItems > 0) {
+        floatBar.classList.add('visible');
+        floatBar.style.display = 'flex';
+      } else {
+        floatBar.classList.remove('visible');
+        floatBar.style.display = 'none';
+      }
+    }
+  },
+
+  scrollToCart() {
+    const cartPanel = document.querySelector('.pos-cart-panel');
+    if (cartPanel) {
+      cartPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   },
 
   updateNavBadge() {
     const badge = document.getElementById('nav-cart-count');
+    const mobileBadge = document.getElementById('mobile-nav-cart-badge');
     const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
     if (badge) {
       badge.textContent = totalItems;
       badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+    }
+    if (mobileBadge) {
+      mobileBadge.textContent = totalItems;
+      mobileBadge.style.display = totalItems > 0 ? 'inline-block' : 'none';
     }
   },
 
