@@ -116,6 +116,17 @@
 
     <!-- VIEW 1: BILLING & POS COUNTER TERMINAL (ACTIVE BY DEFAULT) -->
     <section class="view-section active-view" id="view-billing">
+
+      <!-- Mobile POS Sub-View Switcher (Visible on mobile screens <= 768px) -->
+      <div class="mobile-pos-switcher">
+        <button type="button" class="mobile-pos-switch-btn active" id="pos-btn-show-catalog" onclick="Billing.setMobileSubView('catalog')">
+          <i class="fas fa-th-large"></i> <span>Catalog Items</span>
+        </button>
+        <button type="button" class="mobile-pos-switch-btn" id="pos-btn-show-cart" onclick="Billing.setMobileSubView('cart')">
+          <i class="fas fa-receipt"></i> <span>Current Bill (<span class="mobile-bill-count">0</span>)</span>
+        </button>
+      </div>
+
       <div class="billing-layout">
 
         <!-- Left: Item Catalog Quick Pick -->

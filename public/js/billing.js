@@ -320,6 +320,12 @@ const Billing = {
 
     // Sync mobile floating cart bar
     this.updateFloatingCartBar(totals);
+
+    // Sync mobile switcher count
+    const billCountEl = document.querySelector('.mobile-bill-count');
+    if (billCountEl) {
+      billCountEl.textContent = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
   },
 
   updateFloatingCartBar(totals) {
@@ -328,11 +334,11 @@ const Billing = {
     const floatAmt = document.getElementById('cart-float-amt');
     const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    if (floatQty) floatQty.textContent = totalItems;
+    if (floatQty) floatQty.textContent = `${totalItems} items in bill`;
     if (floatAmt) floatAmt.textContent = `${totals.currency}${totals.grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
     if (floatBar) {
-      if (totalItems > 0) {
+      if (totalItems > 0 && (!this.mobileSubView || this.mobileSubView === 'catalog')) {
         floatBar.classList.add('visible');
         floatBar.style.display = 'flex';
       } else {
@@ -342,10 +348,47 @@ const Billing = {
     }
   },
 
-  scrollToCart() {
+  mobileSubView: 'catalog',
+
+  setMobileSubView(view) {
+    this.mobileSubView = view;
+    const catPanel = document.querySelector('.pos-catalog-panel');
     const cartPanel = document.querySelector('.pos-cart-panel');
-    if (cartPanel) {
-      cartPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const btnCat = document.getElementById('pos-btn-show-catalog');
+    const btnCart = document.getElementById('pos-btn-show-cart');
+    const floatBar = document.getElementById('mobile-cart-float-bar');
+
+    if (window.innerWidth <= 768) {
+      if (view === 'cart') {
+        if (catPanel) catPanel.style.display = 'none';
+        if (cartPanel) {
+          cartPanel.style.display = 'block';
+          cartPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (btnCat) btnCat.classList.remove('active');
+        if (btnCart) btnCart.classList.add('active');
+        if (floatBar) floatBar.style.display = 'none';
+      } else {
+        if (catPanel) catPanel.style.display = 'block';
+        if (cartPanel) cartPanel.style.display = 'none';
+        if (btnCat) btnCat.classList.add('active');
+        if (btnCart) btnCart.classList.remove('active');
+        if (floatBar && this.cart.length > 0) floatBar.style.display = 'flex';
+      }
+    } else {
+      if (catPanel) catPanel.style.display = '';
+      if (cartPanel) cartPanel.style.display = '';
+    }
+  },
+
+  scrollToCart() {
+    if (window.innerWidth <= 768) {
+      this.setMobileSubView('cart');
+    } else {
+      const cartPanel = document.querySelector('.pos-cart-panel');
+      if (cartPanel) {
+        cartPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   },
 
@@ -360,6 +403,10 @@ const Billing = {
     if (mobileBadge) {
       mobileBadge.textContent = totalItems;
       mobileBadge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+    }
+    const billCountEl = document.querySelector('.mobile-bill-count');
+    if (billCountEl) {
+      billCountEl.textContent = totalItems;
     }
   },
 

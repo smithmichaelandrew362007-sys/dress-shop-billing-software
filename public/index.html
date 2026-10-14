@@ -32,7 +32,7 @@
   </script>
   <script src="js/theme.js" defer></script>
 </head>
-<body>
+<body class="has-bottom-nav">
 
   <!-- Top Announcement Bar -->
   <div class="announcement-bar">
@@ -137,10 +137,12 @@
     <div class="mobile-drawer-body">
       <ul class="mobile-nav-links">
         <li><a href="#hero" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="#collections" class="mobile-nav-link"><i class="fas fa-sparkles"></i> Collections</a></li>
-        <li><a href="#dresses" class="mobile-nav-link"><i class="fas fa-vest-patches"></i> Dress Catalog</a></li>
+        <li><a href="evening-gowns.html" class="mobile-nav-link"><i class="fas fa-gem"></i> Evening Gowns & Nightwear</a></li>
+        <li><a href="bridal-lehengas.html" class="mobile-nav-link"><i class="fas fa-crown"></i> Bridal & Lehengas</a></li>
+        <li><a href="sarees-drapes.html" class="mobile-nav-link"><i class="fas fa-sparkles"></i> Sarees & Drapes</a></li>
+        <li><a href="mens-couture.html" class="mobile-nav-link"><i class="fas fa-user-tie"></i> Men's Couture</a></li>
+        <li><a href="#dresses" class="mobile-nav-link"><i class="fas fa-vest-patches"></i> Complete Catalog</a></li>
         <li><a href="#heritage" class="mobile-nav-link"><i class="fas fa-landmark"></i> Our Heritage</a></li>
-        <li><a href="#lookbook" class="mobile-nav-link"><i class="fas fa-camera-retro"></i> Lookbook</a></li>
         <li><a href="#visit" class="mobile-nav-link"><i class="fas fa-map-marker-alt"></i> Boutique & Hours</a></li>
       </ul>
 
@@ -261,37 +263,37 @@
       </div>
 
       <div class="collections-showcase-grid">
-        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+        <a href="bridal-lehengas.html" class="collection-showcase-card" style="text-decoration: none; color: inherit; cursor: pointer;">
           <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" alt="Bridal Lehengas" />
           <div class="collection-showcase-overlay">
             <h4>Bridal & Lehengas</h4>
             <span>Heirloom Masterpieces</span>
           </div>
-        </div>
+        </a>
 
-        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+        <a href="sarees-drapes.html" class="collection-showcase-card" style="text-decoration: none; color: inherit; cursor: pointer;">
           <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80" alt="Sarees & Drapes" />
           <div class="collection-showcase-overlay">
             <h4>Sarees & Drapes</h4>
             <span>Pure Katan, Banarasi & Organza</span>
           </div>
-        </div>
+        </a>
 
-        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+        <a href="evening-gowns.html" class="collection-showcase-card" style="text-decoration: none; color: inherit; cursor: pointer;">
           <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80" alt="Evening Gowns" />
           <div class="collection-showcase-overlay">
             <h4>Evening Gowns</h4>
             <span>Velvet, Satin & Red Carpet Glamour</span>
           </div>
-        </div>
+        </a>
 
-        <div class="collection-showcase-card" onclick="document.getElementById('dresses').scrollIntoView({behavior: 'smooth'})">
+        <a href="mens-couture.html" class="collection-showcase-card" style="text-decoration: none; color: inherit; cursor: pointer;">
           <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Men's Couture" />
           <div class="collection-showcase-overlay">
             <h4>Men's Couture</h4>
             <span>Raw Silk Sherwanis & Tuxedos</span>
           </div>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -609,6 +611,45 @@
       </div>
     </div>
   </div>
+
+  <!-- Floating Mobile Cart Bar -->
+  <a href="billing.html" class="mobile-cart-float-bar" id="mobile-cart-float-bar" style="display: none; text-decoration: none;">
+    <div class="cart-float-info">
+      <span class="cart-float-icon"><i class="fas fa-shopping-bag"></i></span>
+      <div>
+        <div class="cart-float-qty" id="cart-float-qty">0 items in bill</div>
+        <div class="cart-float-amt" id="cart-float-amt">₹0.00</div>
+      </div>
+    </div>
+    <div class="cart-float-btn">
+      Checkout & Bill <i class="fas fa-arrow-right"></i>
+    </div>
+  </a>
+
+  <!-- Mobile Bottom App Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Customer Mobile Navigation">
+    <a href="index.html" class="mobile-bottom-tab active" id="mob-tab-home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#collections" class="mobile-bottom-tab" id="mob-tab-collections">
+      <i class="fas fa-crown"></i>
+      <span>Collections</span>
+    </a>
+    <a href="#dresses" class="mobile-bottom-tab" id="mob-tab-catalog">
+      <i class="fas fa-vest-patches"></i>
+      <span>Catalog</span>
+    </a>
+    <a href="billing.html" class="mobile-bottom-tab" id="mob-tab-billing">
+      <i class="fas fa-shopping-bag"></i>
+      <span>POS Bill</span>
+      <span class="mobile-nav-badge nav-cart-badge-count" style="display: none;">0</span>
+    </a>
+    <a href="login.html" class="mobile-bottom-tab" id="mob-tab-account">
+      <i class="fas fa-user-circle"></i>
+      <span>Account</span>
+    </a>
+  </nav>
 
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>

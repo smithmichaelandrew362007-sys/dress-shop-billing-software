@@ -421,7 +421,7 @@
     }
   </style>
 </head>
-<body>
+<body class="has-bottom-nav">
 
   <!-- Top Navigation Header -->
   <header class="auth-header">
@@ -870,5 +870,29 @@
 
     document.addEventListener('DOMContentLoaded', () => AuthPage.init());
   </script>
+  <!-- Mobile Bottom App Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Customer Mobile Navigation">
+    <a href="index.html" class="mobile-bottom-tab" id="mob-tab-home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="index.html#collections" class="mobile-bottom-tab" id="mob-tab-collections">
+      <i class="fas fa-crown"></i>
+      <span>Collections</span>
+    </a>
+    <a href="index.html#dresses" class="mobile-bottom-tab" id="mob-tab-catalog">
+      <i class="fas fa-vest-patches"></i>
+      <span>Catalog</span>
+    </a>
+    <a href="billing.html" class="mobile-bottom-tab" id="mob-tab-billing">
+      <i class="fas fa-shopping-bag"></i>
+      <span>POS Bill</span>
+      <span class="mobile-nav-badge nav-cart-badge-count" style="display: none;">0</span>
+    </a>
+    <a href="login.html" class="mobile-bottom-tab active" id="mob-tab-account">
+      <i class="fas fa-user-circle"></i>
+      <span>Account</span>
+    </a>
+  </nav>
 </body>
 </html>

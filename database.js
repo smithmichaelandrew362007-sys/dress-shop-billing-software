@@ -177,6 +177,7 @@ function initSchema() {
   }
 
   seedDataIfEmpty();
+  ensureCuratedProducts();
 }
 
 function seedDataIfEmpty() {
@@ -550,6 +551,388 @@ function seedDataIfEmpty() {
   insertInvItem.run(invId, 3, 'Emerald Velvet Floor-Length Evening Gown', 'LUM-GWN-003', 'M', 'Emerald Green', 9999, 1, 9999);
 
   console.log('Database initialized and seeded successfully.');
+}
+
+function ensureCuratedProducts() {
+  if (!db) return;
+  try {
+    const allCats = db.prepare('SELECT id, slug FROM categories').all();
+    const catMap = {};
+    for (const c of allCats) {
+      catMap[c.slug] = c.id;
+    }
+
+    const insertOrIgnore = db.prepare(`
+      INSERT OR IGNORE INTO products (name, sku, category_id, gender, fabric, sizes, colors, price, cost_price, stock_quantity, image_url, description, is_featured)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const extraDresses = [
+      // Evening Gowns & Nightwear
+      {
+        name: 'Luxury Silk Charmeuse Night Gown & Robe Set',
+        sku: 'LUM-NGT-019',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: '100% Pure Mulberry Silk Charmeuse',
+        sizes: 'XS, S, M, L',
+        colors: 'Blush Pink, Pearl Ivory, Midnight Navy',
+        price: 6499,
+        cost_price: 3600,
+        stock_quantity: 16,
+        image_url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+        description: 'Ultra-luxurious pure mulberry silk night gown featuring French Chantilly lace scalloped trim, adjustable straps, and coordinating silk belted kimono robe.',
+        is_featured: 1
+      },
+      {
+        name: 'Midnight Obsidian Corset Ball Gown',
+        sku: 'LUM-GWN-020',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: 'Multi-Tiered Tulle & Duchesse Satin',
+        sizes: 'XS, S, M, L, XL',
+        colors: 'Obsidian Black, Deep Violet, Midnight Teal',
+        price: 14500,
+        cost_price: 8500,
+        stock_quantity: 6,
+        image_url: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80',
+        description: 'Breathtaking floor-length gala ball gown featuring a hand-structured corset bodice, sweetheart plunge, and voluminous tiered tulle skirt.',
+        is_featured: 1
+      },
+      {
+        name: 'Celestial Crystal Embellished Night Gown',
+        sku: 'LUM-NGT-021',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: 'Featherlight Modal Satin & Lace',
+        sizes: 'S, M, L, XL',
+        colors: 'Celestial Silver, Rose Dust, Lavender Mist',
+        price: 4999,
+        cost_price: 2700,
+        stock_quantity: 18,
+        image_url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80',
+        description: 'Dreamy flowing night gown crafted in feather-soft modal satin with crystal neckline beading and deep crossover back.',
+        is_featured: 0
+      },
+      {
+        name: 'Champagne Shimmer Backless Slip Dress',
+        sku: 'LUM-GWN-022',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: 'Liquid Metallic Satin',
+        sizes: 'XS, S, M, L',
+        colors: 'Champagne Shimmer, Bronze, Pewter',
+        price: 5299,
+        cost_price: 2900,
+        stock_quantity: 12,
+        image_url: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80',
+        description: 'Minimalist 90s-inspired slip gown in high-shine liquid metallic champagne satin with a cowl drape back and side slit.',
+        is_featured: 0
+      },
+      {
+        name: 'Sapphire Star Mermaid Evening Gown',
+        sku: 'LUM-GWN-023',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: 'Italian Crepe & Hand-set Crystals',
+        sizes: 'S, M, L, XL',
+        colors: 'Royal Sapphire, Ruby Red, Emerald',
+        price: 12800,
+        cost_price: 7400,
+        stock_quantity: 8,
+        image_url: 'https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&w=800&q=80',
+        description: 'Deep sapphire blue mermaid silhouette with sculpted shoulder drape and crystal floral constellation embroidery along the torso.',
+        is_featured: 1
+      },
+      {
+        name: 'Blossom Silk Kimono Night Gown',
+        sku: 'LUM-NGT-024',
+        category_id: catMap['gowns-western'],
+        gender: 'Women',
+        fabric: 'Pure Raw Silk Satin',
+        sizes: 'Free Size',
+        colors: 'Sakura Pink, Ivory White, Jade',
+        price: 4499,
+        cost_price: 2400,
+        stock_quantity: 14,
+        image_url: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+        description: 'Graceful lounge and night gown with wide kimono bell sleeves, oriental floral hand-painting, and tie sash.',
+        is_featured: 0
+      },
+
+      // Bridal & Lehengas
+      {
+        name: 'Royal Noor Mahal Velvet Bridal Lehenga',
+        sku: 'LUM-LEH-025',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Heritage Silk Velvet & Tissue Dupatta',
+        sizes: 'Custom, S, M, L, XL',
+        colors: 'Ruby Velvet, Crimson, Wine',
+        price: 38900,
+        cost_price: 24000,
+        stock_quantity: 4,
+        image_url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+        description: 'Couture bridal ensemble crafted in crimson micro-velvet, featuring 3D floral zardozi embroidery, semi-precious beadwork, and pure gold tissue veil.',
+        is_featured: 1
+      },
+      {
+        name: 'Gulbahar Pastel Organza Floral Lehenga',
+        sku: 'LUM-LEH-026',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Handloom Sheer Organza & Silk Crepe',
+        sizes: 'XS, S, M, L',
+        colors: 'Blush Pink, Mint Mist, Peach Powder',
+        price: 18999,
+        cost_price: 11000,
+        stock_quantity: 9,
+        image_url: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80',
+        description: 'Enchanting modern bridal lehenga with delicate resham floral blooms, pearl edge scallop border, and featherlight organza dupatta.',
+        is_featured: 1
+      },
+      {
+        name: 'Kashi Vermilion Raw Silk Wedding Lehenga',
+        sku: 'LUM-LEH-027',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Pure Banarasi Raw Silk & Zari',
+        sizes: 'S, M, L, XL',
+        colors: 'Vermilion Red, Sindoor Scarlet',
+        price: 28500,
+        cost_price: 17000,
+        stock_quantity: 7,
+        image_url: 'https://images.unsplash.com/photo-1596783074918-c84cb06531ca?auto=format&fit=crop&w=800&q=80',
+        description: 'Traditional Indian wedding attire featuring auspicious vermilion red silk woven with antique gold jaal and handcrafted peacock motifs.',
+        is_featured: 1
+      },
+      {
+        name: 'Champagne Gold Crystal Reception Lehenga',
+        sku: 'LUM-LEH-028',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Metallic Mesh & Imported Crystals',
+        sizes: 'S, M, L',
+        colors: 'Champagne Gold, Rose Gold, Platinum',
+        price: 32000,
+        cost_price: 19500,
+        stock_quantity: 5,
+        image_url: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80',
+        description: 'Show-stopping reception lehenga glistening with Swarovski crystals, sequins, and metallic bead tassels, paired with off-shoulder corset blouse.',
+        is_featured: 1
+      },
+      {
+        name: 'Peacock Teal Mehendi Mirrorwork Lehenga',
+        sku: 'LUM-LEH-029',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Georgette Silk with Real Mirror Embellishment',
+        sizes: 'XS, S, M, L, XL',
+        colors: 'Peacock Teal, Mustard Yellow, Lime Green',
+        price: 16800,
+        cost_price: 9800,
+        stock_quantity: 11,
+        image_url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
+        description: 'Vibrant festive lehenga illuminated with hand-stitched glass mirrorwork, contrasting thread borders, and latkan tie-ups.',
+        is_featured: 0
+      },
+      {
+        name: 'Ivory & Rose Gold Bridal Anarkali Gown',
+        sku: 'LUM-LEH-030',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Chanderi Silk & Net with Can-Can Flare',
+        sizes: 'S, M, L, XL, XXL',
+        colors: 'Ivory White, Soft Blush',
+        price: 21999,
+        cost_price: 13000,
+        stock_quantity: 8,
+        image_url: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+        description: 'Regal floor-sweeping bridal anarkali lehenga gown featuring 48 kallis, heavy gota patti borders, and scalloped net veil.',
+        is_featured: 1
+      },
+      {
+        name: 'Midnight Blue Velvet Sangeet Lehenga',
+        sku: 'LUM-LEH-031',
+        category_id: catMap['bridal-lehengas'],
+        gender: 'Women',
+        fabric: 'Deep Blue Micro Velvet & Organza',
+        sizes: 'S, M, L, XL',
+        colors: 'Midnight Blue, Sapphire',
+        price: 26500,
+        cost_price: 16000,
+        stock_quantity: 6,
+        image_url: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+        description: 'Dramatic evening Sangeet lehenga in midnight sapphire velvet featuring silver pita needlework and geometric floral motifs.',
+        is_featured: 0
+      },
+
+      // Sarees & Drapes
+      {
+        name: 'Regal Kanchipuram Gold Brocade Temple Silk Saree',
+        sku: 'LUM-SAR-032',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Pure Mulberry Silk & Korvai Gold Zari',
+        sizes: 'Free Size',
+        colors: 'Peacock Green, Bridal Red, Golden Yellow',
+        price: 15800,
+        cost_price: 9800,
+        stock_quantity: 10,
+        image_url: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80',
+        description: 'Authentic Kanchipuram silk saree with interlocking korvai border, traditional temple gopuram motifs, and heavy grand zari pallu.',
+        is_featured: 1
+      },
+      {
+        name: 'Maharani Paithani Handloom Silk Saree',
+        sku: 'LUM-SAR-033',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Pure Yeola Silk & Real Zari Peacock Pallu',
+        sizes: 'Free Size',
+        colors: 'Royal Purple, Emerald Green, Rani Pink',
+        price: 14200,
+        cost_price: 8900,
+        stock_quantity: 8,
+        image_url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+        description: 'Heirloom Maharashtra Paithani saree with kaleidoscope peacock motifs woven on pure gold tissue pallu and muniya border.',
+        is_featured: 1
+      },
+      {
+        name: 'Chanderi Tissue Metallic Gold Festive Saree',
+        sku: 'LUM-SAR-034',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Silk Tissue with Micro Zari Weave',
+        sizes: 'Free Size',
+        colors: 'Metallic Gold, Silver Mist, Copper',
+        price: 6499,
+        cost_price: 3800,
+        stock_quantity: 15,
+        image_url: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+        description: 'Luminous metallic gold Chanderi tissue drape with delicate hand-block accents and hand-rolled edging.',
+        is_featured: 0
+      },
+      {
+        name: 'Tussar Georgette Kashmiri Tilla Saree',
+        sku: 'LUM-SAR-035',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Pure Tussar Georgette Silk',
+        sizes: 'Free Size',
+        colors: 'Oatmeal Beige, Dusty Rose, Powder Blue',
+        price: 9800,
+        cost_price: 5800,
+        stock_quantity: 9,
+        image_url: 'https://images.unsplash.com/photo-1596783074918-c84cb06531ca?auto=format&fit=crop&w=800&q=80',
+        description: 'Textured handloom Tussar georgette embellished with Kashmiri metallic tilla needlework around the scalloped borders.',
+        is_featured: 1
+      },
+      {
+        name: 'Crimson Wedding Katan Silk Saree',
+        sku: 'LUM-SAR-036',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Double-Twisted Pure Katan Silk',
+        sizes: 'Free Size',
+        colors: 'Auspicious Crimson, Sindoor Red',
+        price: 18500,
+        cost_price: 11000,
+        stock_quantity: 7,
+        image_url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+        description: 'Grand bridal heritage weave adorned with an elaborate shikargah animal & vine jaal, symbolizing royalty and auspiciousness.',
+        is_featured: 1
+      },
+      {
+        name: 'Midnight Black & Gold Banarasi Tanchoi Saree',
+        sku: 'LUM-SAR-037',
+        category_id: catMap['sarees-ethnic'],
+        gender: 'Women',
+        fabric: 'Pure Silk Tanchoi Jacquard',
+        sizes: 'Free Size',
+        colors: 'Jet Black with Antique Gold',
+        price: 7899,
+        cost_price: 4500,
+        stock_quantity: 14,
+        image_url: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80',
+        description: 'Sophisticated evening drape woven using the ancient satin tanchoi technique, creating an embossed dual-color floral tapestry.',
+        is_featured: 0
+      },
+
+      // Men's Couture
+      {
+        name: 'Royal Jodhpur Velvet Bandhgala Suit',
+        sku: 'LUM-MEN-038',
+        category_id: catMap['men-sherwanis'],
+        gender: 'Men',
+        fabric: 'Plush Silk Velvet & Metal Buttons',
+        sizes: '38, 40, 42, 44, 46',
+        colors: 'Midnight Navy, Royal Wine, Black',
+        price: 13999,
+        cost_price: 8200,
+        stock_quantity: 9,
+        image_url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+        description: 'Structured aristocratic Bandhgala jacket crafted in midnight navy velvet, detailed with hand-engraved crest buttons and bespoke trousers.',
+        is_featured: 1
+      },
+      {
+        name: 'Ivory & Antique Gold Indo-Western Achkan',
+        sku: 'LUM-MEN-039',
+        category_id: catMap['men-sherwanis'],
+        gender: 'Men',
+        fabric: 'Raw Silk with Angrakha Overlap',
+        sizes: '38, 40, 42, 44',
+        colors: 'Ivory Cream with Antique Gold',
+        price: 15400,
+        cost_price: 9200,
+        stock_quantity: 8,
+        image_url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+        description: 'Contemporary asymmetrical angrakha cut jacket featuring antique zardozi piping, mother-of-pearl buttons, and cowl dhoti.',
+        is_featured: 1
+      },
+      {
+        name: 'Royal Maharaja Brocade Sherwani with Stole',
+        sku: 'LUM-MEN-040',
+        category_id: catMap['men-sherwanis'],
+        gender: 'Men',
+        fabric: 'Varanasi Silk Brocade with Hand Zari',
+        sizes: '38, 40, 42, 44',
+        colors: 'Imperial Gold, Royal Maroon',
+        price: 22500,
+        cost_price: 13500,
+        stock_quantity: 5,
+        image_url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+        description: 'Fit for royalty — heavy Banarasi brocade sherwani accompanied by an embroidered silk stole and coordinating safa fabric.',
+        is_featured: 1
+      },
+      {
+        name: 'Cashmere Wool Charcoal Tuxedo with Shawl Collar',
+        sku: 'LUM-MEN-041',
+        category_id: catMap['men-suits'],
+        gender: 'Men',
+        fabric: 'Italian Cashmere-Wool Blend & Grosgrain Silk',
+        sizes: '38, 40, 42, 44, 46',
+        colors: 'Charcoal Black, Midnight Noir',
+        price: 19800,
+        cost_price: 12000,
+        stock_quantity: 6,
+        image_url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
+        description: 'Sleek black-tie dinner jacket with curved shawl collar in grosgrain silk, satin-covered buttons, and tailored trousers.',
+        is_featured: 1
+      }
+    ];
+
+    for (const item of extraDresses) {
+      if (!item.category_id) continue;
+      insertOrIgnore.run(
+        item.name, item.sku, item.category_id, item.gender, item.fabric,
+        item.sizes, item.colors, item.price, item.cost_price, item.stock_quantity,
+        item.image_url, item.description, item.is_featured
+      );
+    }
+  } catch (err) {
+    console.error('Error ensuring curated products in SQLite:', err.message);
+  }
 }
 
 // Helper methods for queries

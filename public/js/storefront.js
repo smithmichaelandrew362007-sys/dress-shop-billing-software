@@ -14,6 +14,7 @@ const Storefront = {
     await this.loadCategories();
     await this.loadProducts();
     this.bindEvents();
+    this.updateCartBadge();
   },
 
   async loadCategories() {
@@ -284,7 +285,35 @@ const Storefront = {
     }
 
     Billing.addItem(item);
+    this.updateCartBadge();
     App.showToast(`Added "${item.name}" to Billing Counter!`, 'success');
+  },
+
+  updateCartBadge() {
+    let total = 0;
+    let grandTotal = 0;
+    try {
+      const saved = localStorage.getItem('boutique_pos_cart');
+      if (saved) {
+        const cart = JSON.parse(saved);
+        total = cart.reduce((sum, it) => sum + (it.quantity || 1), 0);
+        grandTotal = cart.reduce((sum, it) => sum + ((it.quantity || 1) * (Number(it.unit_price) || 0)), 0);
+      }
+    } catch (e) {}
+
+    document.querySelectorAll('.nav-cart-badge-count').forEach(el => {
+      el.textContent = total;
+      el.style.display = total > 0 ? 'inline-block' : 'none';
+    });
+
+    const floatBar = document.getElementById('mobile-cart-float-bar');
+    const floatQty = document.getElementById('cart-float-qty');
+    const floatAmt = document.getElementById('cart-float-amt');
+    if (floatQty) floatQty.textContent = `${total} ${total === 1 ? 'item' : 'items'} in bill`;
+    if (floatAmt) floatAmt.textContent = `₹${grandTotal.toLocaleString()}`;
+    if (floatBar) {
+      floatBar.style.display = total > 0 ? 'flex' : 'none';
+    }
   },
 
   addToBillingAndSwitch(id) {

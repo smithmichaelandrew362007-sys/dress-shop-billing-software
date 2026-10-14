@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Sarees & Heritage Drapes Collection | Surya Textiles</title>
+  <meta name="description" content="Discover pure Banarasi Katan silks, authentic Kanchipuram temple sarees, floral organza, and Paithani silk sarees at Surya Textiles.">
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main Luxury Boutique Design System -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Immediate Theme Initialization Script (Anti-Flicker) -->
+  <script>
+    (function () {
+      var s = localStorage.getItem('surya_theme') || 'system';
+      var e = s;
+      if (s === 'system') {
+        e = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', e);
+      document.documentElement.setAttribute('data-theme-setting', s);
+    })();
+  </script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body class="has-bottom-nav">
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <span><i class="fas fa-sparkles"></i> 100% PURE SILK MARK CERTIFIED HANDLOOM SAREES</span>
+    <span>•</span>
+    <span><i class="fas fa-ribbon"></i> AUTHENTIC BANARASI KATAN & KANCHIPURAM WEAVES</span>
+    <span>•</span>
+    <span><i class="fas fa-truck"></i> INSURED DOORSTEP DELIVERY</span>
+  </div>
+
+  <!-- Primary Website Navigation Bar -->
+  <header class="top-navbar">
+    <a href="index.html" class="brand-wrapper" title="Surya Textiles Home">
+      <div class="brand-logo-icon">
+        <i class="fas fa-gem" style="font-size: 1.35rem;"></i>
+      </div>
+      <div class="brand-info">
+        <h1 class="brand-store-name">SURYA TEXTILES</h1>
+        <span class="brand-store-tagline">Premium Silks & Ready-to-Wear</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav-wrap">
+      <ul class="website-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#collections">Collections</a></li>
+        <li><a href="evening-gowns.html">Evening Gowns</a></li>
+        <li><a href="bridal-lehengas.html">Bridal</a></li>
+        <li><a href="sarees-drapes.html" class="active">Sarees</a></li>
+        <li><a href="mens-couture.html">Men's</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right Header Actions -->
+    <div class="nav-right-actions">
+      <!-- User Auth State -->
+      <div id="nav-user-area" style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="login.html" id="btn-nav-login" class="btn btn-outline-gold btn-sm" style="text-decoration: none;">
+          <i class="fas fa-user-circle"></i> <span class="nav-btn-text">Sign In</span>
+        </a>
+        <div id="nav-user-profile-badge" style="display: none; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.3); padding: 0.25rem 0.75rem; border-radius: 9999px;">
+          <span id="nav-user-name" style="font-size: 0.82rem; font-weight: 600; color: var(--accent-gold);"></span>
+          <button onclick="AuthHelper.logout()" title="Sign Out" style="background: none; border: none; color: #9ca3af; padding: 0; cursor: pointer; display: flex; align-items: center;">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <a href="billing.html" class="btn btn-primary btn-sm" title="Open Billing Software / POS Cart">
+        <i class="fas fa-shopping-bag"></i> <span class="nav-btn-text">POS Bill</span>
+        <span class="nav-badge nav-cart-badge-count" style="display: none;">0</span>
+      </a>
+
+      <!-- Theme Switcher (Dark, Light, System) -->
+      <div class="theme-switch-control" role="group" aria-label="Theme Selection">
+        <button type="button" class="theme-opt-btn" data-theme-choice="dark" title="Dark Theme">
+          <i class="fas fa-moon"></i>
+          <span class="theme-text">Dark</span>
+        </button>
+        <button type="button" class="theme-opt-btn" data-theme-choice="light" title="Light Theme">
+          <i class="fas fa-sun"></i>
+          <span class="theme-text">Light</span>
+        </button>
+        <button type="button" class="theme-opt-btn" data-theme-choice="system" title="Follow System Theme">
+          <i class="fas fa-desktop"></i>
+          <span class="theme-text">System</span>
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Slide-out Drawer Navigation -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-header">
+      <div class="brand-wrapper">
+        <div class="brand-logo-icon" style="width: 34px; height: 34px;">
+          <i class="fas fa-gem" style="font-size: 1.15rem;"></i>
+        </div>
+        <div class="brand-info">
+          <h2 class="brand-store-name" style="font-size: 1.05rem; margin: 0; line-height: 1.1;">SURYA TEXTILES</h2>
+          <span class="brand-store-tagline" style="font-size: 0.65rem;">Luxury Dress Boutique</span>
+        </div>
+      </div>
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close Navigation Menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="evening-gowns.html" class="mobile-nav-link"><i class="fas fa-gem"></i> Evening Gowns</a></li>
+        <li><a href="bridal-lehengas.html" class="mobile-nav-link"><i class="fas fa-crown"></i> Bridal & Lehengas</a></li>
+        <li><a href="sarees-drapes.html" class="mobile-nav-link active"><i class="fas fa-sparkles"></i> Sarees & Drapes</a></li>
+        <li><a href="mens-couture.html" class="mobile-nav-link"><i class="fas fa-user-tie"></i> Men's Couture</a></li>
+        <li><a href="index.html#dresses" class="mobile-nav-link"><i class="fas fa-vest-patches"></i> Full Catalog</a></li>
+      </ul>
+
+      <div class="mobile-drawer-divider"></div>
+
+      <div class="mobile-drawer-actions">
+        <div id="drawer-user-area">
+          <a href="login.html" class="btn btn-outline-gold btn-sm" style="width: 100%; justify-content: center; display: flex; text-decoration: none;">
+            <i class="fas fa-user-circle"></i> Sign In / Register
+          </a>
+        </div>
+        <a href="billing.html" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; display: flex; text-decoration: none; margin-top: 0.5rem;">
+          <i class="fas fa-cash-register"></i> Open Billing POS Software
+        </a>
+      </div>
+
+      <div class="mobile-drawer-footer">
+        <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Theme Appearance</span>
+        <div class="theme-switch-control" style="width: 100%; justify-content: space-around; display: flex;" role="group" aria-label="Theme Selection">
+          <button type="button" class="theme-opt-btn" data-theme-choice="dark" title="Dark Theme">
+            <i class="fas fa-moon"></i>
+            <span>Dark</span>
+          </button>
+          <button type="button" class="theme-opt-btn" data-theme-choice="light" title="Light Theme">
+            <i class="fas fa-sun"></i>
+            <span>Light</span>
+          </button>
+          <button type="button" class="theme-opt-btn" data-theme-choice="system" title="Follow System Theme">
+            <i class="fas fa-desktop"></i>
+            <span>System</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- Breadcrumb Bar -->
+    <nav class="collection-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <i class="fas fa-chevron-right" style="font-size: 0.7rem; opacity: 0.5;"></i>
+      <a href="index.html#collections">Signature Collections</a>
+      <i class="fas fa-chevron-right" style="font-size: 0.7rem; opacity: 0.5;"></i>
+      <span class="current" id="breadcrumb-current-collection">Sarees & Heritage Drapes</span>
+    </nav>
+
+    <!-- Luxury Collection Hero Banner -->
+    <section class="collection-hero" id="collection-hero-section">
+      <div class="collection-hero-inner">
+        <div class="collection-hero-badge" id="collection-hero-badge">
+          <i class="fas fa-award"></i> 100% Pure Silk Certified
+        </div>
+        <h1 id="collection-hero-title">Sarees & Heritage Drapes</h1>
+        <h2 id="collection-hero-subtitle">Pure Katan, Banarasi & Kanchipuram Silks</h2>
+        <p id="collection-hero-desc">Timeless handloom weaves woven with authentic zari by generational master weavers.</p>
+      </div>
+    </section>
+
+    <!-- Subcategory Tabs Pill Bar -->
+    <div class="collection-subcategories" id="collection-subcategories-bar"></div>
+
+    <!-- Collection Filter & Search Toolbar -->
+    <div class="collection-filter-bar">
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; max-width: 500px;">
+        <div class="search-input-wrap" style="flex: 1;">
+          <i class="fas fa-search"></i>
+          <input type="text" class="form-control" id="collection-search-input" placeholder="Search sarees by weave, color, or motif..." />
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span id="collection-count-display" style="font-size: 0.82rem; color: var(--text-muted);">Loading designs...</span>
+        <select class="form-control" id="collection-sort-select" style="width: 175px;">
+          <option value="featured">Featured First</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="dress-grid" id="collection-items-grid"></div>
+
+    <!-- Trust Badges Bar -->
+    <section class="trust-badges-bar">
+      <div class="trust-badge-item">
+        <i class="fas fa-ribbon"></i>
+        <div>
+          <h5>Silk Mark Authorized</h5>
+          <p>Genuine Katan, Mulberry & Tussar silks</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-hand-sparkles"></i>
+        <div>
+          <h5>Pure Gold Zari Weave</h5>
+          <p>Hand-tested antique zari & brocade</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-tape"></i>
+        <div>
+          <h5>Blouse Piece Included</h5>
+          <p>Coordinated matching unstitched fabric</p>
+        </div>
+      </div>
+      <div class="trust-badge-item">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <h5>Insured Express Shipping</h5>
+          <p>Safe door-to-door worldwide delivery</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Quick View Modal Dialog -->
+  <div class="modal-overlay" id="collection-quick-view-modal">
+    <div class="modal-container" style="max-width: 780px;">
+      <div class="modal-header">
+        <h3 class="modal-title serif-heading">Heritage Saree Details</h3>
+        <button class="modal-close-btn" onclick="CollectionPage.closeQuickView()" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="product-modal-grid">
+          <div>
+            <img src="" id="qv-product-img" alt="Saree Preview" class="modal-product-img" onerror="this.src='https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80'" />
+          </div>
+
+          <div>
+            <span class="dress-sku" id="qv-product-sku">SKU</span>
+            <h2 class="serif-heading" id="qv-product-name" style="font-size: 1.45rem; margin: 0.35rem 0 0.5rem; line-height: 1.25;">Dress Name</h2>
+            <div class="dress-price-tag" style="margin-bottom: 1rem;">
+              <span class="amount" id="qv-product-price" style="font-size: 1.6rem; color: var(--accent-gold); font-weight: 700;">₹0</span>
+            </div>
+
+            <p id="qv-product-desc" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.25rem;">Description</p>
+
+            <div style="background: var(--bg-surface-elevated); padding: 0.85rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.82rem; border: 1px solid var(--border-subtle);">
+              <div style="margin-bottom: 0.35rem;"><strong>Fabric / Material:</strong> <span id="qv-product-fabric">Silk</span></div>
+              <div style="margin-bottom: 0.35rem;"><strong>Colors:</strong> <span id="qv-product-colors">Palette</span></div>
+              <div><strong>Availability:</strong> <span id="qv-product-stock" style="color: var(--accent-emerald); font-weight: 600;">In Stock</span></div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+              <label style="display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.4rem; color: var(--text-muted);">
+                Select Size:
+              </label>
+              <div id="qv-product-sizes" style="display: flex; gap: 0.45rem; flex-wrap: wrap;"></div>
+            </div>
+
+            <button class="btn btn-primary btn-lg" id="qv-btn-add-bill" style="width: 100%; justify-content: center;">
+              <i class="fas fa-shopping-bag"></i> Add to Billing Bill & Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Luxury Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="brand-wrapper" style="margin-bottom: 1rem;">
+          <div class="brand-logo-icon">
+            <i class="fas fa-gem" style="font-size: 1.25rem;"></i>
+          </div>
+          <div class="brand-info">
+            <h2 class="brand-store-name" style="font-size: 1.2rem;">SURYA TEXTILES</h2>
+            <span class="brand-store-tagline">Atelier & Bespoke Dress Shop</span>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; max-width: 320px;">
+          Dedicated to preserving the eternal legacy of Indian handloom heritage, royal bridal silks, and bespoke high-fashion couture.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Signature Collections</h4>
+        <ul class="footer-links-list">
+          <li><a href="evening-gowns.html">Evening Gowns & Nightwear</a></li>
+          <li><a href="bridal-lehengas.html">Bridal Lehengas & Wedding Sets</a></li>
+          <li><a href="sarees-drapes.html">Pure Banarasi & Kanchipuram Sarees</a></li>
+          <li><a href="mens-couture.html">Men's Groom Sherwanis & Tuxedos</a></li>
+          <li><a href="index.html#dresses">Complete Boutique Catalog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Atelier & Counter</h4>
+        <ul class="footer-links-list">
+          <li><a href="billing.html">Point of Sale (POS) Billing Terminal</a></li>
+          <li><a href="billing.html">Inventory Database Management</a></li>
+          <li><a href="login.html">Staff & Customer Portal Login</a></li>
+          <li><a href="index.html#heritage">Generational Weaving Heritage</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Store Visit & Concierge</h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+          42 Fashion Promenade, 2nd Floor<br>Design District, Metro City<br>
+          <strong>Mon – Sun:</strong> 10:00 AM – 9:30 PM<br>
+          <strong>Phone:</strong> +91 98765 43210
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 SURYA TEXTILES. All rights reserved. Handcrafted luxury couture.</div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="billing.html" style="color: var(--accent-gold); text-decoration: none;">Billing Software POS</a>
+        <a href="login.html" style="color: var(--text-muted); text-decoration: none;">Account Access</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Mobile Cart Bar -->
+  <a href="billing.html" class="mobile-cart-float-bar" id="mobile-cart-float-bar" style="display: none; text-decoration: none;">
+    <div class="cart-float-info">
+      <span class="cart-float-icon"><i class="fas fa-shopping-bag"></i></span>
+      <div>
+        <div class="cart-float-qty" id="cart-float-qty">0 items in bill</div>
+        <div class="cart-float-amt" id="cart-float-amt">₹0.00</div>
+      </div>
+    </div>
+    <div class="cart-float-btn">
+      Checkout & Bill <i class="fas fa-arrow-right"></i>
+    </div>
+  </a>
+
+  <!-- Mobile Bottom App Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Customer Mobile Navigation">
+    <a href="index.html" class="mobile-bottom-tab" id="mob-tab-home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="index.html#collections" class="mobile-bottom-tab active" id="mob-tab-collections">
+      <i class="fas fa-crown"></i>
+      <span>Collections</span>
+    </a>
+    <a href="index.html#dresses" class="mobile-bottom-tab" id="mob-tab-catalog">
+      <i class="fas fa-vest-patches"></i>
+      <span>Catalog</span>
+    </a>
+    <a href="billing.html" class="mobile-bottom-tab" id="mob-tab-billing">
+      <i class="fas fa-shopping-bag"></i>
+      <span>POS Bill</span>
+      <span class="mobile-nav-badge nav-cart-badge-count" style="display: none;">0</span>
+    </a>
+    <a href="login.html" class="mobile-bottom-tab" id="mob-tab-account">
+      <i class="fas fa-user-circle"></i>
+      <span>Account</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/auth-helper.js"></script>
+  <script src="js/collection-data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      CollectionPage.init('sarees-drapes');
+
+      if (typeof AuthHelper !== 'undefined') {
+        AuthHelper.init();
+      }
+
+      const toggleBtn = document.getElementById('mobile-menu-toggle');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-nav-backdrop');
+      const closeBtn = document.getElementById('mobile-drawer-close');
+
+      const openDrawer = () => {
+        if (drawer) drawer.classList.add('active');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeDrawer = () => {
+        if (drawer) drawer.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    });
+  </script>
+</body>
+</html>
